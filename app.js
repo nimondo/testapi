@@ -1,7 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const claimRoutes = require('./routes/claim');
+const deliveryRoutes = require('./routes/delivery');
+const packageRoutes = require('./routes/package');
+const defaultRoutes = require('./routes/default');
 const userRoutes = require('./routes/user');
 const helmet = require("helmet");
 const path = require('path');
@@ -20,8 +22,8 @@ mongoose.connect(process.env.MONGODB, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
-  .then(() => console.log('Connexion à MongoDB réussie !'))
-  .catch(() => console.log('Connexion à MongoDB échouée !'));
+  .then(() => console.log('Connection to MongoDB successful !'))
+  .catch(() => console.log('Connection to MongoDB failed !'));
 
 const limiter = rateLimit({
   windowMs: 5 * 60 * 1000, // 15 minutes
@@ -55,10 +57,14 @@ app.use(
 app.use(limiter);
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
-//claim
-app.use('/api/claims', claimRoutes);
+//delivery
+app.use('/api/deliveries', deliveryRoutes);
+//package
+app.use('/api/packages', packageRoutes);
 //auth
 app.use('/api/auth', userRoutes);
+//default
+app.use('/api', defaultRoutes);
 
 //api documentation
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));

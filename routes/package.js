@@ -11,6 +11,8 @@ const packageCtrl = require('../controllers/package');
  *  get:
  *    tags: 
  *      - Package Module
+ *    security: 
+ *      - bearerAuth: [] 
  *    description: Get all the package from DB
  *    package:
  *      - application/json
@@ -28,6 +30,16 @@ router.get('/', auth, packageCtrl.getPackages);
  *  get:
  *    tags: 
  *      - Package Module
+ *    security: 
+ *      - bearerAuth: [] 
+ *    parameters:
+ *       - name: package_id
+ *         in: path
+ *         description: package_id to search
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: string
  *    description: Get single package by packge id
  *    package:
  *      - application/json

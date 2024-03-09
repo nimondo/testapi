@@ -11,6 +11,8 @@ const deliveryCtrl = require('../controllers/delivery');
  *  get:
  *    tags: 
  *      - Delivery Module
+ *    security: 
+ *      - bearerAuth: [] 
  *    description: Get all the deliveries from DB
  *    delivery:
  *      - application/json
@@ -26,9 +28,19 @@ router.get('/', auth, deliveryCtrl.getDeliveries);
  * /api/deliveries/{delivery_id}:
  *  get:
  *    tags: 
- *      - Deliveries Module
+ *      - Delivery Module
+ *    security: 
+ *      - bearerAuth: [] 
+ *    parameters:
+ *       - name: delivery_id
+ *         in: path
+ *         description: delivery_id to search
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: string
  *    description: Get single delivery by delivery id
- *    produces:
+ *    delivery:
  *      - application/json
  *    responses:
  *      '200':
@@ -39,6 +51,131 @@ router.get('/', auth, deliveryCtrl.getDeliveries);
  *        description: Ressource not found.
  */
 router.get('/:id', deliveryCtrl.getOneDelivery);
+/**
+ * @swagger
+ * /api/deliveries:
+ *  post:
+ *    tags:
+ *      - Delivery Module 
+ *    description: Create dlivery
+ *    requestBody:
+ *      description: create delivery
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/User'
+ *        application/xml:
+ *          schema:
+ *            $ref: '#/components/schemas/User'
+ *        application/x-www-form-urlencoded:
+ *          schema:
+ *            $ref: '#/components/schemas/User'
+ *      required: true
+ *    responses:
+ *      '201':
+ *        description: Ressource created.
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/User'
+ *          application/xml:
+ *            schema:
+ *              $ref: '#/components/schemas/User'
+ *      '400':
+ *        description: Bad request.
+ *    schema:
+ */
+router.post('/', deliveryCtrl.createDelivery);
+/**
+ * @swagger
+ * /api/deliveries/{delivery_id}:
+ *  put:
+ *    tags:
+ *      - Delivery Module 
+ *    security: 
+ *      - bearerAuth: [] 
+ *    parameters:
+ *       - name: delivery_id
+ *         in: path
+ *         description: delivery_id to search
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: string
+ *    description: Update delivery
+ *    requestBody:
+ *      description: Update delivery
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/Delivery'
+ *        application/xml:
+ *          schema:
+ *            $ref: '#/components/schemas/Delivery'
+ *        application/x-www-form-urlencoded:
+ *          schema:
+ *            $ref: '#/components/schemas/Delivery'
+ *      required: true
+ *    responses:
+ *      '201':
+ *        description: Ressource updated.
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Delivery'
+ *          application/xml:
+ *            schema:
+ *              $ref: '#/components/schemas/Delivery'
+ *      '400':
+ *        description: Bad request.
+ *    schema:
+ */
+router.put('/:id', deliveryCtrl.updateDelivery);
+/**
+ * @swagger
+ * /api/deliveries/{delivery_id}:
+ *  delete:
+ *    tags:
+ *      - Delivery Module
+ *    security: 
+ *      - bearerAuth: [] 
+ *    parameters:
+ *       - name: delivery_id
+ *         in: path
+ *         description: delivery_id to search
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: string 
+ *    description: delete delivery
+ *    requestBody:
+ *      description: delete delivery
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/Delivery'
+ *        application/xml:
+ *          schema:
+ *            $ref: '#/components/schemas/Delivery'
+ *        application/x-www-form-urlencoded:
+ *          schema:
+ *            $ref: '#/components/schemas/Delivery'
+ *      required: true
+ *    responses:
+ *      '201':
+ *        description: Ressource deleted.
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Delivery'
+ *          application/xml:
+ *            schema:
+ *              $ref: '#/components/schemas/Delivery'
+ *      '400':
+ *        description: Bad request.
+ *    schema:
+ */
+router.post('/signup', deliveryCtrl.deleteDelivery);
 
 
 

@@ -2,6 +2,22 @@ const Delivery = require('../models/delivery');
 const fs = require('fs');
 
 
+exports.createDelivery = (req, res, next) => {
+
+
+  const deliveryData = JSON.parse(req.body);
+  delete thingObject._id;
+  const delivery = new Delivery({
+    ...delivery
+  });
+  delivery.save()
+    .then(() => res.status(201).json({
+      message: 'Delivery created !'
+    }))
+    .catch(error => res.status(400).json({
+      error
+    }));
+}
 exports.getOneDelivery = (req, res, next) => {
   Delivery.findOne({
       package_id: req.params.id
@@ -52,3 +68,33 @@ exports.getDeliveries = async (req, res) => {
     });
   }
 };
+
+exports.updateDelivery = (req, res, next) => {
+  const deliveryData = {
+    ...req.body
+  };
+  Delivery.updateOne({
+      _id: req.params.id
+    }, {
+      ...deliveryData,
+      _id: req.params.id
+    })
+    .then(() => res.status(200).json({
+      message: 'Updated'
+    }))
+    .catch(error => res.status(400).json({
+      error
+    }));
+}
+
+exports.deleteDelivery = (req, res, next) => {
+  Delivery.deleteOne({
+      _id: req.params.id
+    })
+    .then(() => res.status(200).json({
+      message: 'Objet supprimé !'
+    }))
+    .catch(error => res.status(500).json({
+      error
+    }));
+}

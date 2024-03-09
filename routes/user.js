@@ -8,9 +8,7 @@ const userCtrl = require('../controllers/user');
  * /api/auth/signup:
  *  post:
  *    tags:
- *      - User Module
- *    security: 
- *      - bearerAuth: [] 
+ *      - User Module 
  *    description: Returns a single person based on their JWT token
  *    operationId: Login user
  *    requestBody:
@@ -46,9 +44,7 @@ router.post('/signup', userCtrl.signup);
  * /api/auth/signin:
  *  post:
  *    tags:
- *      - User Module
- *    security: 
- *      - bearerAuth: [] 
+ *      - User Module 
  *    description: Returns a single person based on their JWT token
  *    operationId: Login user
  *    requestBody:
@@ -84,6 +80,7 @@ router.post('/signup', userCtrl.signup);
  *         required:
  *          - email
  *          - password
+ *          - role
  *         type: object
  *         properties:
  *          email:
@@ -91,6 +88,10 @@ router.post('/signup', userCtrl.signup);
  *             example: fygui
  *          password:
  *             type: string
+ *          role:
+ *             type: string
+ *             example: customer
+ *             enum: ['customer', 'driver', 'admin']
  *         xml:
  *           name: order
  *    Token:
@@ -100,6 +101,8 @@ router.post('/signup', userCtrl.signup);
  *             type: string
  *             example: fygui
  *          userId:
+ *             type: string
+ *          role:
  *             type: string
  *         xml:
  *           name: order
