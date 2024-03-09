@@ -19,6 +19,13 @@ const deliveryCtrl = require('../controllers/delivery');
  *    responses:
  *      '200':
  *        description: Deliveries fetched successfully.
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Delivery'
+ *          application/xml:
+ *            schema:
+ *              $ref: '#/components/schemas/Delivery'
  *      '401':
  *        description: Token expired.
  */
@@ -45,6 +52,13 @@ router.get('/', auth, deliveryCtrl.getDeliveries);
  *    responses:
  *      '200':
  *        description: Delivery fetched successfully.
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Delivery'
+ *          application/xml:
+ *            schema:
+ *              $ref: '#/components/schemas/Delivery'
  *      '401':
  *        description: Token expired.
  *      '404':
@@ -63,13 +77,13 @@ router.get('/:id', deliveryCtrl.getOneDelivery);
  *      content:
  *        application/json:
  *          schema:
- *            $ref: '#/components/schemas/User'
+ *            $ref: '#/components/schemas/Delivery'
  *        application/xml:
  *          schema:
- *            $ref: '#/components/schemas/User'
+ *            $ref: '#/components/schemas/Delivery'
  *        application/x-www-form-urlencoded:
  *          schema:
- *            $ref: '#/components/schemas/User'
+ *            $ref: '#/components/schemas/Delivery'
  *      required: true
  *    responses:
  *      '201':
@@ -77,13 +91,45 @@ router.get('/:id', deliveryCtrl.getOneDelivery);
  *        content:
  *          application/json:
  *            schema:
- *              $ref: '#/components/schemas/User'
+ *              $ref: '#/components/schemas/Delivery'
  *          application/xml:
  *            schema:
- *              $ref: '#/components/schemas/User'
+ *              $ref: '#/components/schemas/Delivery'
  *      '400':
  *        description: Bad request.
  *    schema:
+ * components:
+ *  schemas:
+ *      Delivery:
+ *       type: object
+ *       properties:
+ *         delivery_id:
+ *           type: string
+ *           format: string
+ *           example: string
+ *         package_id:
+ *           type: string
+ *           format: string
+ *           example: string
+ *         pickup_time:
+ *           type: string
+ *           format: date-time
+ *         start_time:
+ *           type: string
+ *           format: date-time
+ *         end_time:
+ *           type: string
+ *           format: date-time
+ *         location:
+ *           type: object
+ *           properties:
+ *             lat:
+ *              type: string
+ *             lng:
+ *              type: string
+ *         status:
+ *           type: string
+ *           enum: ['open', 'picked-up', 'in-transit', 'delivered', 'failed']
  */
 router.post('/', deliveryCtrl.createDelivery);
 /**

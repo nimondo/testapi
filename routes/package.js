@@ -19,6 +19,16 @@ const packageCtrl = require('../controllers/package');
  *    responses:
  *      '200':
  *        description: Packages fetched successfully.
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/Package'
+ *        application/xml:
+ *          schema:
+ *            $ref: '#/components/schemas/Package'
+ *        application/x-www-form-urlencoded:
+ *          schema:
+ *            $ref: '#/components/schemas/Package'
  *      '401':
  *        description: Token expired.
  */
@@ -46,6 +56,16 @@ router.get('/', auth, packageCtrl.getPackages);
  *    responses:
  *      '200':
  *        description: Package fetched successfully.
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/Package'
+ *        application/xml:
+ *          schema:
+ *            $ref: '#/components/schemas/Package'
+ *        application/x-www-form-urlencoded:
+ *          schema:
+ *            $ref: '#/components/schemas/Package'
  *      '401':
  *        description: Token expired.
  *      '404':
@@ -85,6 +105,60 @@ router.get('/:id', packageCtrl.getOnePackage);
  *      '400':
  *        description: Bad request.
  *    schema:
+ * components:
+ *  schemas:
+ *      Package:
+ *       type: object
+ *       properties:
+ *         package_id:
+ *           type: string
+ *           format: string
+ *           example: string
+ *         active_delivery_id:
+ *           type: string
+ *           format: string
+ *           example: string
+ *         description:
+ *           type: string
+ *           format: string
+ *         weight:
+ *           type: number
+ *         width:
+ *           type: number
+ *         height:
+ *           type: number
+ *         depth:
+ *           type: number
+ *         from_name:
+ *           type: string
+ *           format: string
+ *           example: string
+ *         from_address:
+ *           type: string
+ *           format: string
+ *           example: string
+ *         from_location:
+ *           type: object
+ *           properties:
+ *             lat:
+ *              type: string
+ *             lng:
+ *              type: string
+ *         to_location:
+ *           type: object
+ *           properties:
+ *             lat:
+ *              type: string
+ *             lng:
+ *              type: string
+ *         to_name:
+ *           type: string
+ *           format: string
+ *           example: string
+ *         to_address:
+ *           type: string
+ *           format: string
+ *           example: string
  */
 router.post('/', packageCtrl.createPackage);
 /**
@@ -175,6 +249,7 @@ router.put('/:id', packageCtrl.updatePackage);
  *      '400':
  *        description: Bad request.
  *    schema:
+ * 
  */
 router.delete('/:id', packageCtrl.deletePackage);
 
