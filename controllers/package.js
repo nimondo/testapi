@@ -1,7 +1,19 @@
 const Package = require('../models/package');
 const fs = require('fs');
 
-
+exports.createPackage = (req, res, next) => {
+    const packageData = JSON.parse(req.body);
+    const package = new Package({
+        ...packageData
+    });
+    package.save()
+        .then(() => res.status(201).json({
+            message: 'Package created !'
+        }))
+        .catch(error => res.status(400).json({
+            error
+        }));
+}
 exports.getOnePackage = (req, res, next) => {
     Package.findOne({
             package_id: req.params.id
@@ -52,3 +64,32 @@ exports.getPackages = async (req, res) => {
         });
     }
 };
+exports.updatePackage = (req, res, next) => {
+    const packageData = {
+        ...req.body
+    };
+    Package.updateOne({
+            _id: req.params.id
+        }, {
+            ...packageData,
+            _id: req.params.id
+        })
+        .then(() => res.status(200).json({
+            message: 'Updated!'
+        }))
+        .catch(error => res.status(400).json({
+            error
+        }));
+}
+
+exports.deletePackage = (req, res, next) => {
+    Package.deleteOne({
+            _id: req.params.id
+        })
+        .then(() => res.status(200).json({
+            message: 'Objet supprimé !'
+        }))
+        .catch(error => res.status(500).json({
+            error
+        }));
+}

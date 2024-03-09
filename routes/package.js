@@ -52,6 +52,131 @@ router.get('/', auth, packageCtrl.getPackages);
  *        description: Ressource not found.
  */
 router.get('/:id', packageCtrl.getOnePackage);
+/**
+ * @swagger
+ * /api/packages:
+ *  post:
+ *    tags:
+ *      - Package Module 
+ *    description: Create Package
+ *    requestBody:
+ *      description: create Package
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/Package'
+ *        application/xml:
+ *          schema:
+ *            $ref: '#/components/schemas/Package'
+ *        application/x-www-form-urlencoded:
+ *          schema:
+ *            $ref: '#/components/schemas/Package'
+ *      required: true
+ *    responses:
+ *      '201':
+ *        description: Ressource created.
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Package'
+ *          application/xml:
+ *            schema:
+ *              $ref: '#/components/schemas/Package'
+ *      '400':
+ *        description: Bad request.
+ *    schema:
+ */
+router.post('/', packageCtrl.createPackage);
+/**
+ * @swagger
+ * /api/packages/{package_id}:
+ *  put:
+ *    tags:
+ *      - Package Module 
+ *    security: 
+ *      - bearerAuth: [] 
+ *    parameters:
+ *       - name: package_id
+ *         in: path
+ *         description: package_id to search
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: string
+ *    description: Update package
+ *    requestBody:
+ *      description: Update package
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/Package'
+ *        application/xml:
+ *          schema:
+ *            $ref: '#/components/schemas/Package'
+ *        application/x-www-form-urlencoded:
+ *          schema:
+ *            $ref: '#/components/schemas/Package'
+ *      required: true
+ *    responses:
+ *      '201':
+ *        description: Ressource updated.
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Package'
+ *          application/xml:
+ *            schema:
+ *              $ref: '#/components/schemas/Package'
+ *      '400':
+ *        description: Bad request.
+ *    schema:
+ */
+router.put('/:id', packageCtrl.updatePackage);
+/**
+ * @swagger
+ * /api/packages/{package_id}:
+ *  delete:
+ *    tags:
+ *      - Package Module
+ *    security: 
+ *      - bearerAuth: [] 
+ *    parameters:
+ *       - name: package_id
+ *         in: path
+ *         description: package_id to search
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: string 
+ *    description: delete Package
+ *    requestBody:
+ *      description: delete Package
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/Package'
+ *        application/xml:
+ *          schema:
+ *            $ref: '#/components/schemas/Package'
+ *        application/x-www-form-urlencoded:
+ *          schema:
+ *            $ref: '#/components/schemas/Package'
+ *      required: true
+ *    responses:
+ *      '201':
+ *        description: Ressource deleted.
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Package'
+ *          application/xml:
+ *            schema:
+ *              $ref: '#/components/schemas/Package'
+ *      '400':
+ *        description: Bad request.
+ *    schema:
+ */
+router.delete('/:id', packageCtrl.deletePackage);
 
 
 

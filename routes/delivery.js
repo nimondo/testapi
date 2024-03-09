@@ -175,7 +175,7 @@ router.put('/:id', deliveryCtrl.updateDelivery);
  *        description: Bad request.
  *    schema:
  */
-router.post('/signup', deliveryCtrl.deleteDelivery);
+router.delete('/:id', deliveryCtrl.deleteDelivery);
 
 
 

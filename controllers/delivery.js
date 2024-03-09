@@ -3,12 +3,9 @@ const fs = require('fs');
 
 
 exports.createDelivery = (req, res, next) => {
-
-
   const deliveryData = JSON.parse(req.body);
-  delete thingObject._id;
   const delivery = new Delivery({
-    ...delivery
+    ...deliveryData
   });
   delivery.save()
     .then(() => res.status(201).json({
