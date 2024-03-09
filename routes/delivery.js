@@ -2,76 +2,43 @@ const express = require('express');
 
 const router = express.Router();
 const auth = require('../middleware/auth');
-const multer = require('../middleware/multer-config');
-const claimCtrl = require('../controllers/claim');
+const deliveryCtrl = require('../controllers/delivery');
 
 
 /**
  * @swagger
- * /api/claims:
+ * /api/deliveries:
  *  get:
  *    tags: 
- *      - Claims Module
- *    description: Get all the claims from DB
- *    produces:
+ *      - Delivery Module
+ *    description: Get all the deliveries from DB
+ *    delivery:
  *      - application/json
  *    responses:
  *      '200':
- *        description: Claims fetched successfully.
+ *        description: Deliveries fetched successfully.
  *      '401':
  *        description: Token expired.
  */
-router.get('/', auth, claimCtrl.getClaims);
+router.get('/', auth, deliveryCtrl.getDeliveries);
 /**
  * @swagger
- * /api/consultation:
+ * /api/deliveries/{delivery_id}:
  *  get:
  *    tags: 
- *      - Consultation Module
- *    description: Get all the consultation
+ *      - Deliveries Module
+ *    description: Get single delivery by delivery id
  *    produces:
  *      - application/json
  *    responses:
  *      '200':
- *        description: Consultation fetched successfully.
- *      '401':
- *        description: Token expired.
- */
-router.get('/', auth, claimCtrl.getClaims);
-/**
- * @swagger
- * /api/claims:
- *  get:
- *    tags: 
- *      - Claims Module
- *    description: Get all the claims from DB
- *    produces:
- *      - application/json
- *    responses:
- *      '200':
- *        description: Claims fetched successfully.
- *      '401':
- *        description: Token expired.
- */
-router.get('/', auth, claimCtrl.getClaims);
-/**
- * @swagger
- * /api/claims/{claimId}:
- *  get:
- *    tags: 
- *      - Claims Module
- *    description: Get single claim by claim id
- *    produces:
- *      - application/json
- *    responses:
- *      '200':
- *        description: Claim fetched successfully.
+ *        description: Delivery fetched successfully.
  *      '401':
  *        description: Token expired.
  *      '404':
  *        description: Ressource not found.
  */
-router.get('/:id', claimCtrl.getOneClaim);
+router.get('/:id', deliveryCtrl.getOneDelivery);
 
 
 

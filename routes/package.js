@@ -7,70 +7,39 @@ const packageCtrl = require('../controllers/package');
 
 /**
  * @swagger
- * /api/deliveries:
+ * /api/package:
  *  get:
  *    tags: 
- *      - Delivery Module
- *    description: Get all the delivs from DB
- *    produces:
+ *      - Package Module
+ *    description: Get all the package from DB
+ *    package:
  *      - application/json
  *    responses:
  *      '200':
- *        description: Claims fetched successfully.
+ *        description: Packages fetched successfully.
  *      '401':
  *        description: Token expired.
  */
-router.get('/', auth, claimCtrl.getClaims);
+router.get('/', auth, packageCtrl.getPackages);
+
 /**
  * @swagger
- * /api/consultation:
+ * /api/packages/{package_id}:
  *  get:
  *    tags: 
- *      - Consultation Module
- *    description: Get all the consultation
- *    produces:
+ *      - Package Module
+ *    description: Get single package by packge id
+ *    package:
  *      - application/json
  *    responses:
  *      '200':
- *        description: Consultation fetched successfully.
- *      '401':
- *        description: Token expired.
- */
-router.get('/', auth, claimCtrl.getClaims);
-/**
- * @swagger
- * /api/claims:
- *  get:
- *    tags: 
- *      - Claims Module
- *    description: Get all the claims from DB
- *    produces:
- *      - application/json
- *    responses:
- *      '200':
- *        description: Claims fetched successfully.
- *      '401':
- *        description: Token expired.
- */
-router.get('/', auth, claimCtrl.getClaims);
-/**
- * @swagger
- * /api/claims/{claimId}:
- *  get:
- *    tags: 
- *      - Claims Module
- *    description: Get single claim by claim id
- *    produces:
- *      - application/json
- *    responses:
- *      '200':
- *        description: Claim fetched successfully.
+ *        description: Package fetched successfully.
  *      '401':
  *        description: Token expired.
  *      '404':
  *        description: Ressource not found.
  */
-router.get('/:id', claimCtrl.getOneClaim);
+router.get('/:id', packageCtrl.getOnePackage);
 
 
 
