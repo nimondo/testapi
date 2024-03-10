@@ -28,11 +28,11 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
     const jwtToken = this.authService.getToken();
-    const decodedToken: any =
-      this.authService.getToken() != null
-        ? jwt_decode(jwtToken as string)
-        : null;
-    const userRole = decodedToken != null ? decodedToken.Role : null;
+    // const decodedToken: any =
+    //   this.authService.getToken() != null
+    //     ? jwt_decode(jwtToken as string)
+    //     : null;
+    const userRole = this.authService.getRole();
 
     if (!jwtToken || this.jwtHelper.isTokenExpired(jwtToken)) {
       // Check if the token is missing or expired

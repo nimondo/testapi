@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import jwt_decode from 'jwt-decode';
-import { Observable } from 'rxjs';
-
-const TOKEN_KEY = '0202kwmsJNSSSIW9KM@@3OEDKKDO';
+// import jwt_decode from 'jwt-decode';
+// import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -12,34 +10,37 @@ export class AuthService {
   constructor(private router: Router) {}
 
   public saveToken(token: string): void {
-    window.sessionStorage.removeItem(TOKEN_KEY);
-    window.sessionStorage.setItem(TOKEN_KEY, token);
+    window.sessionStorage.removeItem("token");
+    window.sessionStorage.setItem("token", token);
+  }
+  public saveUserData(userId: string, role: string, email: string ): void {
+    window.sessionStorage.removeItem("userData");
+    window.sessionStorage.setItem("userData", JSON.stringify({"userId": userId, "email":email, "role":role}));
   }
   public getUser(): string | null {
-    const jwtToken = this.getToken();
-    const decodedToken: any =
-      this.getToken() != null ? jwt_decode(jwtToken as string) : null;
-    const email = decodedToken != null ? decodedToken?.email : null;
+    const userData = this.getUserData() ? JSON.parse(this.getUserData()):null;
+    const email = userData != null ? userData.email: null;
     return email;
   }
   public getUserId(): string | null {
-    const jwtToken = this.getToken();
-    const decodedToken: any =
-      this.getToken() != null ? jwt_decode(jwtToken as string) : null;
-    const userId = decodedToken != null ? decodedToken?.userId : null;
+    const userData = this.getUserData() ? JSON.parse(this.getUserData()):null;
+    const userId = userData != null ? userData.userId: null;
     return userId;
   }
   public getToken(): string | null {
-    return window.sessionStorage.getItem(TOKEN_KEY) !== null
-      ? window.sessionStorage.getItem(TOKEN_KEY)
+    return window.sessionStorage.getItem("token") !== null
+      ? window.sessionStorage.getItem("token")
+      : null;
+  }
+  public getUserData(): any | null {
+    return window.sessionStorage.getItem("userData") !== null
+      ? window.sessionStorage.getItem("userData")
       : null;
   }
 
   public getRole() {
-    const jwtToken = this.getToken();
-    const decodedToken: any =
-      this.getToken() != null ? jwt_decode(jwtToken as string) : null;
-    const userRole = decodedToken != null ? decodedToken?.role : null;
+    const userData = this.getUserData() ? JSON.parse(this.getUserData()):null;
+    const userRole = userData != null ? userData.role: null;
     return userRole;
   }
 

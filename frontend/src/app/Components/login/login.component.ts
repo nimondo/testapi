@@ -57,6 +57,7 @@ export class LoginComponent {
       this.userService.signIn(LoginInfo).subscribe({
         next: (data: any) => {
           this.authService.saveToken(data.token);
+          this.authService.saveUserData(data.userId, data.role, data.email);
           this.isLoginFailed = false;
           window.location.reload();
         },

@@ -21,6 +21,8 @@ import { HomeComponent } from './Components/home/home.component';
 import { DeliveryService } from './Services/delivery.service';
 import { PackageService } from './Services/package.service';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
+import { PackageComponent } from './Components/package/package.component';
+import { DeliveryComponent } from './Components/delivery/delivery.component';
 
 export function tokenGetter() {
   return sessionStorage.getItem("TOKEN_KEY");
@@ -33,7 +35,9 @@ export function tokenGetter() {
     RegisterComponent,
     UserComponent,
     AdminComponent,
-    HomeComponent
+    HomeComponent,
+    PackageComponent,
+    DeliveryComponent
   ],
   imports: [
     BrowserModule,
