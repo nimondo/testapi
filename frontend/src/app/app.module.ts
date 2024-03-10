@@ -1,31 +1,38 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  NgModule,
+} from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import {
+  ErrorStateMatcher,
+  ShowOnDirtyErrorStateMatcher,
+} from '@angular/material/core';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { JwtModule } from '@auth0/angular-jwt';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from './material.module';
-import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { JwtModule } from '@auth0/angular-jwt';
-import { authInterceptorProviders } from './Interceptor/auth.interceptor';
-import { DataService } from './Services/data.service';
-import { AddressService } from './Services/address.service';
-import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
+import { AdminComponent } from './Components/admin/admin.component';
+import { DeliveryComponent } from './Components/delivery/delivery.component';
+import { HomeComponent } from './Components/home/home.component';
 import { LoginComponent } from './Components/login/login.component';
+import { PackageComponent } from './Components/package/package.component';
 import { RegisterComponent } from './Components/register/register.component';
 import { UserComponent } from './Components/user/user.component';
-import { AdminComponent } from './Components/admin/admin.component';
+import { authInterceptorProviders } from './Interceptor/auth.interceptor';
+import { MaterialModule } from './material.module';
+import { AddressService } from './Services/address.service';
 import { AuthService } from './Services/auth.service';
-import { HomeComponent } from './Components/home/home.component';
+import { DataService } from './Services/data.service';
 import { DeliveryService } from './Services/delivery.service';
 import { PackageService } from './Services/package.service';
-import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
-import { PackageComponent } from './Components/package/package.component';
-import { DeliveryComponent } from './Components/delivery/delivery.component';
 
 export function tokenGetter() {
-  return sessionStorage.getItem("TOKEN_KEY");
+  return sessionStorage.getItem('TOKEN_KEY');
 }
 
 @NgModule({
@@ -37,7 +44,7 @@ export function tokenGetter() {
     AdminComponent,
     HomeComponent,
     PackageComponent,
-    DeliveryComponent
+    DeliveryComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,7 +56,7 @@ export function tokenGetter() {
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
-        allowedDomains: ["localhost:3000"],
+        allowedDomains: ['localhost:3000'],
         disallowedRoutes: [],
       },
     }),
@@ -61,12 +68,10 @@ export function tokenGetter() {
     AuthService,
     DeliveryService,
     PackageService,
-    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 3500}},
-    {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}
+    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 3500 } },
+    { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
   ],
   bootstrap: [AppComponent],
-  schemas: [
-    CUSTOM_ELEMENTS_SCHEMA
-  ]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class AppModule { }
+export class AppModule {}

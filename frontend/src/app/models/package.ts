@@ -1,19 +1,19 @@
-import { Location } from "./location";
+import { Location } from './location';
 
 export class Package {
     package_id: string;
     // user: User
-      active_delivery_id: string;
-      description: string;
-      width: number;
-      height: number;
-      depth: number;
-      from_name:string;
-      from_address: string;
-      from_location: Location;
-      to_name:string;
-      to_location: Location
-      to_address: string;
+    active_delivery_id: string;
+    description: string;
+    width: number;
+    height: number;
+    depth: number;
+    from_name:string;
+    from_address: string;
+    from_location: Location;
+    to_name:string;
+    to_location: Location
+    to_address: string;
 
   constructor() {
     this.package_id="";

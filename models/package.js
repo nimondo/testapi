@@ -5,12 +5,12 @@ const packageSchema = mongoose.Schema({
     type: String,
     required: true,
     unique: true,
-    default: () => `note_${nanoid()}`,
   },
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User"
-  },
+  //TODO: add the customer
+  // user: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: "User"
+  // },
   active_delivery_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Delivery"

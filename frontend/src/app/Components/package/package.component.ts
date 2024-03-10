@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
 import {
-  AbstractControl,
   FormControl,
   FormGroup,
-  ValidationErrors,
   Validators,
 } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+
 import { ErrorsStateMatcher } from 'src/app/Error-state-matcher';
 import { PackageService } from 'src/app/Services/package.service';
+import { v1 as uuid } from 'uuid';
 
 @Component({
   selector: 'app-package',
   templateUrl: './package.component.html',
-  styleUrls: ['./package.component.css']
+  styleUrls: ['./package.component.css'],
 })
 export class PackageComponent {
   constructor(
@@ -30,35 +30,61 @@ export class PackageComponent {
   hide: boolean = true;
 
   //form group
-  form: FormGroup = new FormGroup(
-    {
-      role: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [
-        Validators.required,
-        Validators.minLength(8),
-        Validators.pattern('(?=.*d)(?=.*[a-z])(?=.*[A-Z]).{8,}'),
-      ]),
-      cPassword: new FormControl('', [Validators.required]),
-    },
-   
-  );
+  form: FormGroup = new FormGroup({
+    description: new FormControl('', [Validators.required]),
+    weight: new FormControl('', [Validators.required]),
+    height: new FormControl('', [Validators.required]),
+    width: new FormControl('', [Validators.required]),
+    depth: new FormControl('', [Validators.required]),
+    from_name: new FormControl('', [Validators.required]),
+    from_address: new FormControl('', [Validators.required]),
+    from_location: new FormControl('', [
+      Validators.required,
+      Validators.pattern('[^,]+'),
+    ]),
+    to_name: new FormControl('', [Validators.required]),
+    to_address: new FormControl('', [Validators.required]),
+    to_location: new FormControl('', [
+      Validators.required,
+      Validators.pattern('[^,]+'),
+    ]),
+  });
 
   //get all Form Fields
-  get role() {
-    return this.form.get('role');
+  get description() {
+    return this.form.get('description');
   }
-  get lastname() {
-    return this.form.get('lastname');
+  get weight() {
+    return this.form.get('weight');
   }
-  get email() {
-    return this.form.get('email');
+  get height() {
+    return this.form.get('height');
   }
-  get password() {
-    return this.form.get('password');
+  get width() {
+    return this.form.get('width');
   }
-  get cPassword() {
-    return this.form.get('cPassword');
+  get depth() {
+    return this.form.get('depth');
+  }
+
+  get from_name() {
+    return this.form.get('from_name');
+  }
+  get from_address() {
+    return this.form.get('from_address');
+  }
+  get from_location() {
+    return this.form.get('from_location');
+  }
+
+  get to_name() {
+    return this.form.get('to_name');
+  }
+  get to_address() {
+    return this.form.get('to_address');
+  }
+  get to_location() {
+    return this.form.get('to_location');
   }
 
   // match errors in the submition of form
@@ -69,20 +95,35 @@ export class PackageComponent {
     // TODO: Use EventEmitter with form value
     this.isSubmited = true;
     if (!this.form.invalid) {
-      const user = {
-        email: this.email?.value,
-        password: this.password?.value,
-        role: this.role?.value,
+      const packageData = {
+        package_id: uuid(),
+        // active_delivery_id: (string guid)
+        description: this.description?.value,
+        weight: parseInt(this.weight?.value),
+        width: parseInt(this.width?.value),
+        height: parseInt(this.height?.value),
+        depth: parseInt(this.depth?.value),
+        from_name: this.from_name?.value,
+        from_address: this.from_address?.value,
+        from_location: {
+          lat: this.from_location?.value.split(',')[0],
+          long: this.from_location?.value.split(',')[1],
+        },
+        to_name: this.to_name?.value,
+        to_address: this.to_address?.value,
+        to_location: {
+          lat: this.to_location?.value.split(',')[0],
+          long: this.to_location?.value.split(',')[1],
+        },
       };
-      console.log(user);
-      this.packageService.Create(user).subscribe(() => {
-        this._snackBar.open('Your account has been created successfully', '✔️');
-        setTimeout(() => (window.location.href = '/signin'), 2000);
+      console.log(packageData);
+      this.packageService.Create(packageData).subscribe(() => {
+        this._snackBar.open('Your package has been created successfully', '✔️');
+        setTimeout(() => (window.location.href = '/admin'), 2000);
       });
     } else {
       console.log(this.form);
       this._snackBar.open('Enter a valid informations !!!', '❌');
     }
   }
-
 }

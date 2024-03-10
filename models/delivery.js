@@ -4,14 +4,15 @@ const deliverySchema = mongoose.Schema({
   delivery_id: {
     type: mongoose.Schema.Types.ObjectId
   },
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User"
-  },
-  package_id: {
+  //TODO: add the driver
+  // user: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: "User"
+  // },
+  package_id: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "Package"
-  },
+  }],
   pickup_time: {
     type: Date
   },
@@ -36,7 +37,8 @@ const deliverySchema = mongoose.Schema({
   status: {
     type: String,
     enum: ['open', 'picked-up', 'in-transit', 'delivered', 'failed'],
-  },
+    required: true
+  }
 }, {
   timestamps: true,
 });
