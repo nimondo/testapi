@@ -28,6 +28,11 @@ exports.getOneDelivery = (req, res, next) => {
 }
 
 exports.getDeliveries = async (req, res) => {
+  let user = req.query.user
+  let filter = {
+    user: user
+  };
+
   try {
     const pageNumber = parseInt(req.query.pageNumber) || 0;
     const limit = parseInt(req.query.limit) || 12;
@@ -48,7 +53,7 @@ exports.getDeliveries = async (req, res) => {
         limit: limit,
       };
     }
-    result.data = await Delivery.find()
+    result.data = await Delivery.find(filter)
       .sort("-_id")
       .skip(startIndex)
       .limit(limit)

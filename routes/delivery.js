@@ -14,6 +14,14 @@ const deliveryCtrl = require('../controllers/delivery');
  *    security: 
  *      - bearerAuth: [] 
  *    description: Get all the deliveries from DB
+ *    parameters:
+ *       - name: user
+ *         in: path
+ *         description: user id to search
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: string
  *    delivery:
  *      - application/json
  *    responses:

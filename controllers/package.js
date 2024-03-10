@@ -27,6 +27,10 @@ exports.getOnePackage = (req, res, next) => {
 }
 
 exports.getPackages = async (req, res) => {
+    let user = req.query.user
+    let filter = {
+        user: user
+    };
     try {
         const pageNumber = parseInt(req.query.pageNumber) || 0;
         const limit = parseInt(req.query.limit) || 12;
@@ -47,7 +51,7 @@ exports.getPackages = async (req, res) => {
                 limit: limit,
             };
         }
-        result.data = await Package.find()
+        result.data = await Package.find(filter)
             .sort("-_id")
             .skip(startIndex)
             .limit(limit)

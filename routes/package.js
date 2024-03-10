@@ -7,12 +7,20 @@ const packageCtrl = require('../controllers/package');
 
 /**
  * @swagger
- * /api/package:
+ * /api/packages:
  *  get:
  *    tags: 
  *      - Package Module
  *    security: 
  *      - bearerAuth: [] 
+ *    parameters:
+ *       - name: user
+ *         in: path
+ *         description: user id to search
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: string
  *    description: Get all the package from DB
  *    package:
  *      - application/json
