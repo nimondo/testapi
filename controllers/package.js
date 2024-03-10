@@ -13,11 +13,12 @@ exports.createPackage = (req, res, next) => {
         message: "Package created !",
       })
     )
-    .catch((error) =>
+    .catch((error) => {
+      console.log(error);
       res.status(400).json({
         error,
-      })
-    );
+      });
+    });
 };
 exports.getOnePackage = (req, res, next) => {
   Package.findOne({
@@ -41,7 +42,7 @@ exports.getPackages = async (req, res) => {
     user: user,
   };
   try {
-    const pageNumber = parseInt(req.query.pageNumber) || 0;
+    const pageNumber = parseInt(req.query.page) || 0;
     const limit = parseInt(req.query.limit) || 12;
     const result = {};
     const totalPackages = await Package.countDocuments().exec();

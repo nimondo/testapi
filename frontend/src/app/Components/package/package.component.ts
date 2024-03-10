@@ -8,7 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { ErrorsStateMatcher } from 'src/app/Error-state-matcher';
 import { PackageService } from 'src/app/Services/package.service';
-import { v1 as uuid } from 'uuid';
+import { v4 as uuid4 } from 'uuid';
 
 @Component({
   selector: 'app-package',
@@ -40,13 +40,13 @@ export class PackageComponent {
     from_address: new FormControl('', [Validators.required]),
     from_location: new FormControl('', [
       Validators.required,
-      Validators.pattern('[^,]+'),
+      // Validators.pattern('/[^,]+/g'),
     ]),
     to_name: new FormControl('', [Validators.required]),
     to_address: new FormControl('', [Validators.required]),
     to_location: new FormControl('', [
       Validators.required,
-      Validators.pattern('[^,]+'),
+      // Validators.pattern('/[^,]+/g'),
     ]),
   });
 
@@ -96,7 +96,7 @@ export class PackageComponent {
     this.isSubmited = true;
     if (!this.form.invalid) {
       const packageData = {
-        package_id: uuid(),
+        _id: uuid4(),
         // active_delivery_id: (string guid)
         description: this.description?.value,
         weight: parseInt(this.weight?.value),
@@ -116,7 +116,7 @@ export class PackageComponent {
           long: this.to_location?.value.split(',')[1],
         },
       };
-      console.log(packageData);
+      console.log('package', packageData);
       this.packageService.Create(packageData).subscribe(() => {
         this._snackBar.open('Your package has been created successfully', '✔️');
         setTimeout(() => (window.location.href = '/admin'), 2000);

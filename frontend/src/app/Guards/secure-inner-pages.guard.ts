@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
+
 import { Observable } from 'rxjs';
-import { MatSnackBar } from '@angular/material/snack-bar';
+
 import { JwtHelperService } from '@auth0/angular-jwt';
+
 import { AuthService } from '../Services/auth.service';
 
 @Injectable({

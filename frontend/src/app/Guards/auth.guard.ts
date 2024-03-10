@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
   Router,
   RouterStateSnapshot,
-  UrlTree,
 } from '@angular/router';
+
 import { Observable } from 'rxjs';
-import { AuthService } from '../Services/auth.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+
 import { JwtHelperService } from '@auth0/angular-jwt';
-import jwt_decode from 'jwt-decode';
+
+import { AuthService } from '../Services/auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -52,6 +53,7 @@ export class AuthGuard implements CanActivate {
         });
       }
     } else {
+      // console.log(route.data['role'], userRole);
       if (route.data['role'] && route.data['role'].indexOf(userRole) === -1) {
         // Check if the user's role is not granted access
         this._snackBar.open('Access Denied! Role Not Granted.', '❌');

@@ -21,6 +21,7 @@ import { DeliveryComponent } from './Components/delivery/delivery.component';
 import { HomeComponent } from './Components/home/home.component';
 import { LoginComponent } from './Components/login/login.component';
 import { PackageComponent } from './Components/package/package.component';
+import { PaginatorComponent } from './Components/paginator/paginator.component';
 import { RegisterComponent } from './Components/register/register.component';
 import { UserComponent } from './Components/user/user.component';
 import { authInterceptorProviders } from './Interceptor/auth.interceptor';
@@ -45,6 +46,7 @@ export function tokenGetter() {
     HomeComponent,
     PackageComponent,
     DeliveryComponent,
+    PaginatorComponent,
   ],
   imports: [
     BrowserModule,

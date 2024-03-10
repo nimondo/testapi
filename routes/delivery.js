@@ -1,20 +1,26 @@
-const express = require('express');
+const express = require("express");
 
 const router = express.Router();
-const auth = require('../middleware/auth');
-const deliveryCtrl = require('../controllers/delivery');
-
+const auth = require("../middleware/auth");
+const deliveryCtrl = require("../controllers/delivery");
 
 /**
  * @swagger
  * /api/deliveries:
  *  get:
- *    tags: 
+ *    tags:
  *      - Delivery Module
- *    security: 
- *      - bearerAuth: [] 
+ *    security:
+ *      - bearerAuth: []
  *    description: Get all the deliveries from DB
  *    parameters:
+ *       - name: page
+ *         in: path
+ *         description: page number
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: string
  *       - name: user
  *         in: path
  *         description: user id to search
@@ -37,15 +43,15 @@ const deliveryCtrl = require('../controllers/delivery');
  *      '401':
  *        description: Token expired.
  */
-router.get('/', auth, deliveryCtrl.getDeliveries);
+router.get("/", auth, deliveryCtrl.getDeliveries);
 /**
  * @swagger
  * /api/deliveries/{delivery_id}:
  *  get:
- *    tags: 
+ *    tags:
  *      - Delivery Module
- *    security: 
- *      - bearerAuth: [] 
+ *    security:
+ *      - bearerAuth: []
  *    parameters:
  *       - name: delivery_id
  *         in: path
@@ -72,13 +78,13 @@ router.get('/', auth, deliveryCtrl.getDeliveries);
  *      '404':
  *        description: Ressource not found.
  */
-router.get('/:id', deliveryCtrl.getOneDelivery);
+router.get("/:id", deliveryCtrl.getOneDelivery);
 /**
  * @swagger
  * /api/deliveries:
  *  post:
  *    tags:
- *      - Delivery Module 
+ *      - Delivery Module
  *    description: Create dlivery
  *    requestBody:
  *      description: create delivery
@@ -139,15 +145,15 @@ router.get('/:id', deliveryCtrl.getOneDelivery);
  *           type: string
  *           enum: ['open', 'picked-up', 'in-transit', 'delivered', 'failed']
  */
-router.post('/', deliveryCtrl.createDelivery);
+router.post("/", deliveryCtrl.createDelivery);
 /**
  * @swagger
  * /api/deliveries/{delivery_id}:
  *  put:
  *    tags:
- *      - Delivery Module 
- *    security: 
- *      - bearerAuth: [] 
+ *      - Delivery Module
+ *    security:
+ *      - bearerAuth: []
  *    parameters:
  *       - name: delivery_id
  *         in: path
@@ -184,15 +190,15 @@ router.post('/', deliveryCtrl.createDelivery);
  *        description: Bad request.
  *    schema:
  */
-router.put('/:id', deliveryCtrl.updateDelivery);
+router.put("/:id", deliveryCtrl.updateDelivery);
 /**
  * @swagger
  * /api/deliveries/{delivery_id}:
  *  delete:
  *    tags:
  *      - Delivery Module
- *    security: 
- *      - bearerAuth: [] 
+ *    security:
+ *      - bearerAuth: []
  *    parameters:
  *       - name: delivery_id
  *         in: path
@@ -200,7 +206,7 @@ router.put('/:id', deliveryCtrl.updateDelivery);
  *         required: true
  *         schema:
  *           type: string
- *           format: string 
+ *           format: string
  *    description: delete delivery
  *    requestBody:
  *      description: delete delivery
@@ -229,9 +235,6 @@ router.put('/:id', deliveryCtrl.updateDelivery);
  *        description: Bad request.
  *    schema:
  */
-router.delete('/:id', deliveryCtrl.deleteDelivery);
-
-
-
+router.delete("/:id", deliveryCtrl.deleteDelivery);
 
 module.exports = router;

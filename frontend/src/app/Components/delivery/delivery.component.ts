@@ -1,27 +1,38 @@
 import { Component } from '@angular/core';
 import {
-  AbstractControl,
   FormControl,
   FormGroup,
-  ValidationErrors,
   Validators,
 } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+
 import { ErrorsStateMatcher } from 'src/app/Error-state-matcher';
 import { DeliveryService } from 'src/app/Services/delivery.service';
+import { PackageService } from 'src/app/Services/package.service';
+import { v4 as uuid4 } from 'uuid';
 
 @Component({
   selector: 'app-delivery',
   templateUrl: './delivery.component.html',
-  styleUrls: ['./delivery.component.css']
+  styleUrls: ['./delivery.component.css'],
 })
 export class DeliveryComponent {
+  packages!: any;
   constructor(
     private deliveryService: DeliveryService,
+    private packageService: PackageService,
     private _snackBar: MatSnackBar
   ) {}
 
-  ngOnInit(): void {}
+  getAllPackages() {
+    this.packageService.getAll().subscribe((response: any) => {
+      this.packages = response.data.data;
+      console.log(this.packages);
+    });
+  }
+  ngOnInit(): void {
+    this.getAllPackages();
+  }
 
   //Declaration
   // check the form is submitted or not yet
@@ -30,37 +41,22 @@ export class DeliveryComponent {
   hide: boolean = true;
 
   //form group
-  form: FormGroup = new FormGroup(
-    {
-      role: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [
-        Validators.required,
-        Validators.minLength(8),
-        Validators.pattern('(?=.*d)(?=.*[a-z])(?=.*[A-Z]).{8,}'),
-      ]),
-      cPassword: new FormControl('', [Validators.required]),
-    },
-   
-  );
+  form: FormGroup = new FormGroup({
+    package_id: new FormControl('', [Validators.required]),
+    location: new FormControl('', [Validators.required]),
+    // status: new FormControl('', [Validators.required]),
+  });
 
   //get all Form Fields
-  get role() {
-    return this.form.get('role');
+  get package_id() {
+    return this.form.get('package_id');
   }
-  get lastname() {
-    return this.form.get('lastname');
+  get location() {
+    return this.form.get('location');
   }
-  get email() {
-    return this.form.get('email');
-  }
-  get password() {
-    return this.form.get('password');
-  }
-  get cPassword() {
-    return this.form.get('cPassword');
-  }
-
+  // get status() {
+  //   return this.form.get('status');
+  // }
   // match errors in the submition of form
   matcher = new ErrorsStateMatcher();
 
@@ -69,16 +65,33 @@ export class DeliveryComponent {
     // TODO: Use EventEmitter with form value
     this.isSubmited = true;
     if (!this.form.invalid) {
-      const user = {
-        email: this.email?.value,
-        password: this.password?.value,
-        role: this.role?.value,
+      const deliveryData = {
+        _id: uuid4(),
+        package_id: this.package_id?.value,
+        location: {
+          lat: this.location?.value.split(',')[0],
+          long: this.location?.value.split(',')[1],
+        },
+        status: 'open',
       };
-      console.log(user);
-      this.deliveryService.Create(user).subscribe(() => {
-        this._snackBar.open('Your account has been created successfully', '✔️');
-        setTimeout(() => (window.location.href = '/signin'), 2000);
+      console.log('data', deliveryData);
+      this.deliveryService.Create(deliveryData).subscribe((delivery) => {
+        console.log('delivery', delivery);
+        console.log('delivery id', deliveryData.package_id);
+        for (const package_id of deliveryData.package_id) {
+          this.packageService
+            .Update(package_id, { active_delivery_id: delivery.id })
+            .subscribe(() => {});
+        }
       });
+
+      setTimeout(() => {
+        window.location.href = '/signin';
+        this._snackBar.open(
+          'Your delivery has been created successfully',
+          '✔️'
+        );
+      }, 2000);
     } else {
       console.log(this.form);
       this._snackBar.open('Enter a valid informations !!!', '❌');

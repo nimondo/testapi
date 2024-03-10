@@ -1,22 +1,28 @@
-const express = require('express');
+const express = require("express");
 
 const router = express.Router();
-const auth = require('../middleware/auth');
-const packageCtrl = require('../controllers/package');
-
+const auth = require("../middleware/auth");
+const packageCtrl = require("../controllers/package");
 
 /**
  * @swagger
  * /api/packages:
  *  get:
- *    tags: 
+ *    tags:
  *      - Package Module
- *    security: 
- *      - bearerAuth: [] 
+ *    security:
+ *      - bearerAuth: []
  *    parameters:
  *       - name: user
  *         in: path
  *         description: user id to search
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: string
+ *       - name: page
+ *         in: path
+ *         description: page number
  *         required: true
  *         schema:
  *           type: string
@@ -40,16 +46,16 @@ const packageCtrl = require('../controllers/package');
  *      '401':
  *        description: Token expired.
  */
-router.get('/', auth, packageCtrl.getPackages);
+router.get("/", auth, packageCtrl.getPackages);
 
 /**
  * @swagger
  * /api/packages/{package_id}:
  *  get:
- *    tags: 
+ *    tags:
  *      - Package Module
- *    security: 
- *      - bearerAuth: [] 
+ *    security:
+ *      - bearerAuth: []
  *    parameters:
  *       - name: package_id
  *         in: path
@@ -79,13 +85,13 @@ router.get('/', auth, packageCtrl.getPackages);
  *      '404':
  *        description: Ressource not found.
  */
-router.get('/:id', packageCtrl.getOnePackage);
+router.get("/:id", packageCtrl.getOnePackage);
 /**
  * @swagger
  * /api/packages:
  *  post:
  *    tags:
- *      - Package Module 
+ *      - Package Module
  *    description: Create Package
  *    requestBody:
  *      description: create Package
@@ -168,15 +174,15 @@ router.get('/:id', packageCtrl.getOnePackage);
  *           format: string
  *           example: string
  */
-router.post('/', packageCtrl.createPackage);
+router.post("/", packageCtrl.createPackage);
 /**
  * @swagger
  * /api/packages/{package_id}:
  *  put:
  *    tags:
- *      - Package Module 
- *    security: 
- *      - bearerAuth: [] 
+ *      - Package Module
+ *    security:
+ *      - bearerAuth: []
  *    parameters:
  *       - name: package_id
  *         in: path
@@ -213,15 +219,15 @@ router.post('/', packageCtrl.createPackage);
  *        description: Bad request.
  *    schema:
  */
-router.put('/:id', packageCtrl.updatePackage);
+router.put("/:id", packageCtrl.updatePackage);
 /**
  * @swagger
  * /api/packages/{package_id}:
  *  delete:
  *    tags:
  *      - Package Module
- *    security: 
- *      - bearerAuth: [] 
+ *    security:
+ *      - bearerAuth: []
  *    parameters:
  *       - name: package_id
  *         in: path
@@ -229,7 +235,7 @@ router.put('/:id', packageCtrl.updatePackage);
  *         required: true
  *         schema:
  *           type: string
- *           format: string 
+ *           format: string
  *    description: delete Package
  *    requestBody:
  *      description: delete Package
@@ -257,11 +263,8 @@ router.put('/:id', packageCtrl.updatePackage);
  *      '400':
  *        description: Bad request.
  *    schema:
- * 
+ *
  */
-router.delete('/:id', packageCtrl.deletePackage);
-
-
-
+router.delete("/:id", packageCtrl.deletePackage);
 
 module.exports = router;
