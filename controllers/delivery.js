@@ -23,6 +23,7 @@ exports.getOneDelivery = (req, res, next) => {
   Delivery.findOne({
     _id: req.params.id,
   })
+    .populate("package_id")
     .then((delivery) =>
       res.status(200).json({
         delivery,

@@ -11,11 +11,128 @@
                 <mat-form-field class="example-full-width">
                   <input
                     matInput
-                    placeholder="Search by package id"
+                    placeholder="Enter Package ID"
                     formControlName="searchFilter"
                   />
                 </mat-form-field>
               </form>
+            </div>
+            <div class="row d-flex justify-content-center">
+              <div class="col-12">
+                <h1 *ngIf="package">Package Details</h1>
+                <table class="table" style="margin-top: 10px" *ngIf="package">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>description</th>
+                      <td>{{ package?.description }}</td>
+                    </tr>
+                    <tr>
+                      <th scope="col">Weight</th>
+                      <td>{{ package?.weight }}</td>
+                    </tr>
+                    <tr>
+                      <th scope="col">height</th>
+                      <td>{{ package?.height }}</td>
+                    </tr>
+                    <tr>
+                      <th scope="col">width</th>
+                      <td>{{ package?.width }}</td>
+                    </tr>
+                    <tr>
+                      <th scope="col">depth</th>
+                      <td>{{ package?.depth }}</td>
+                    </tr>
+                    <tr>
+                      <th scope="col">from_name</th>
+                      <td>{{ package?.from_name }}</td>
+                    </tr>
+                    <tr>
+                      <th scope="col">from_address</th>
+                      <td>{{ package?.from_address }}</td>
+                    </tr>
+                    <tr>
+                      <th scope="col">from_location</th>
+                      <td>
+                        lat:{{ package?.from_location?.lat }}, long:{{
+                          package?.from_location?.long
+                        }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="col">to_name</th>
+                      <td>{{ package?.to_name }}</td>
+                    </tr>
+                    <tr>
+                      <th scope="col">to_address</th>
+                      <td>{{ package?.to_address }}</td>
+                    </tr>
+                    <tr>
+                      <th scope="col">to_location</th>
+                      <td>
+                        lat:{{ package?.to_location?.lat }}, long:{{
+                          package?.to_location?.long
+                        }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="col">Package</th>
+                      <th scope="row">{{ package._id }}</th>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="col-12">
+                <h1 *ngIf="delivery">Delivery Details</h1>
+                <table class="table" style="margin-top: 10px" *ngIf="delivery">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>delivery</th>
+                      <td>{{ delivery._id }}</td>
+                    </tr>
+
+                    <tr>
+                      <th scope="col">location</th>
+                      <td>
+                        lat:{{ delivery?.from_location?.lat }}, long:{{
+                          delivery?.from_location?.long
+                        }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="col">Status</th>
+                      <td>{{ delivery?.status }}</td>
+                    </tr>
+                    <tr>
+                      <th scope="col">pickup_time</th>
+                      <td>{{ delivery?.pickup_time | date : "medium" }}</td>
+                    </tr>
+                    <tr>
+                      <th scope="col">start_time</th>
+                      <td>
+                        {{ delivery?.start_time | date : "medium" }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="col">end_time</th>
+                      <td>
+                        {{ delivery?.end_time | date : "medium" }}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>

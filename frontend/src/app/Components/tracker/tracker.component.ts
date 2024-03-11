@@ -16,6 +16,8 @@ import { PackageService } from 'src/app/Services/package.service';
   styleUrls: ['./tracker.component.css'],
 })
 export class TrackerComponent {
+  package: any;
+  delivery: any;
   filterForm: FormGroup = new FormGroup({
     searchFilter: new FormControl<string>(''),
   });
@@ -29,11 +31,12 @@ export class TrackerComponent {
     this.filterFormSubsription = this.filterForm.valueChanges
       .pipe(debounceTime(400))
       .subscribe((changes) => {
-        console.log('changes', changes);
         this.searchFilter = changes.searchFilter;
         this.packageService.get(this.searchFilter).subscribe({
           next: (res) => {
-            console.log('res', res);
+            console.log('changes', res);
+            this.package = res.package;
+            this.delivery = res.package?.active_delivery_id;
           },
         });
       });
