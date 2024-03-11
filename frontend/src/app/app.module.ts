@@ -4,6 +4,7 @@ import {
   NgModule,
 } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { GoogleMapsModule } from '@angular/google-maps';
 import {
   ErrorStateMatcher,
   ShowOnDirtyErrorStateMatcher,
@@ -21,6 +22,7 @@ import { DeliveryComponent } from './Components/delivery/delivery.component';
 import { DriverComponent } from './Components/driver/driver.component';
 import { HomeComponent } from './Components/home/home.component';
 import { LoginComponent } from './Components/login/login.component';
+import { MapComponent } from './Components/map/map.component';
 import { PackageComponent } from './Components/package/package.component';
 import { PaginatorComponent } from './Components/paginator/paginator.component';
 import { RegisterComponent } from './Components/register/register.component';
@@ -51,6 +53,7 @@ export function tokenGetter() {
     PaginatorComponent,
     TrackerComponent,
     DriverComponent,
+    MapComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,6 +69,7 @@ export function tokenGetter() {
         disallowedRoutes: [],
       },
     }),
+    GoogleMapsModule,
   ],
   providers: [
     authInterceptorProviders,

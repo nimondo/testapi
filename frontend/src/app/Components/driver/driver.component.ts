@@ -4,10 +4,7 @@ import {
   FormGroup,
 } from '@angular/forms';
 
-import {
-  debounceTime,
-  Subscription,
-} from 'rxjs';
+import { Subscription } from 'rxjs';
 import { DeliveryService } from 'src/app/Services/delivery.service';
 
 @Component({
@@ -27,18 +24,33 @@ export class DriverComponent {
   ngOnDestroy(): void {
     this.filterFormSubsription.unsubscribe();
   }
+
+  //get all Form Fields
+  get search() {
+    return this.filterForm.get('searchFilter');
+  }
   ngOnInit(): void {
-    this.filterFormSubsription = this.filterForm.valueChanges
-      .pipe(debounceTime(400))
-      .subscribe((changes) => {
-        this.searchFilter = changes.searchFilter;
-        this.deliveryService.get(this.searchFilter).subscribe({
-          next: (res) => {
-            console.log('changes', res);
-            this.packages = res.delivery?.package_id;
-            this.delivery = res.delivery;
-          },
-        });
-      });
+    // this.filterFormSubsription = this.filterForm.valueChanges
+    //   .pipe(debounceTime(400))
+    //   .subscribe((changes) => {
+    //     this.searchFilter = changes.searchFilter;
+    //     this.deliveryService.get(this.searchFilter).subscribe({
+    //       next: (res) => {
+    //         console.log('changes', res);
+    //         this.packages = res.delivery?.package_id;
+    //         this.delivery = res.delivery;
+    //       },
+    //     });
+    //   });
+  }
+  // submit fntc
+  onSubmit() {
+    console.log('search', this.search?.value);
+    this.deliveryService.get(this.search?.value).subscribe({
+      next: (res) => {
+        this.packages = res.delivery?.package_id;
+        this.delivery = res.delivery;
+      },
+    });
   }
 }

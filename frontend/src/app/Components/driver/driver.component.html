@@ -7,14 +7,32 @@
           <!--search bar -->
           <div class="row" id="search-bar">
             <div class="d-flex justify-content-center">
-              <form [formGroup]="filterForm">
-                <mat-form-field class="example-full-width">
-                  <input
-                    matInput
-                    placeholder="Enter Delivery ID"
-                    formControlName="searchFilter"
-                  />
-                </mat-form-field>
+              <form
+                [formGroup]="filterForm"
+                class="row form-inline"
+                (ngSubmit)="onSubmit()"
+              >
+                <div class="col-7 mr-3">
+                  <mat-form-field class="example-full-width">
+                    <input
+                      matInput
+                      placeholder="Enter Delivery ID"
+                      formControlName="searchFilter"
+                      name="searchFilter"
+                    />
+                  </mat-form-field>
+                </div>
+
+                <div class="offset-1 col-4 mt-2">
+                  <button
+                    mat-raised-button
+                    type="submit"
+                    color="primary"
+                    class="btn btn-primary btn-lg btn-block"
+                  >
+                    Search
+                  </button>
+                </div>
               </form>
             </div>
             <div class="row d-flex justify-content-center">
@@ -117,11 +135,7 @@
       <div
         class="col-md-9 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2"
       >
-        <img
-          src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
-          class="img-fluid"
-          alt="Register Image"
-        />
+        <app-map></app-map>
       </div>
     </div>
   </div>
