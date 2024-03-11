@@ -21,7 +21,7 @@ exports.createDelivery = (req, res, next) => {
 };
 exports.getOneDelivery = (req, res, next) => {
   Delivery.findOne({
-    package_id: req.params.id,
+    _id: req.params.id,
   })
     .then((delivery) =>
       res.status(200).json({

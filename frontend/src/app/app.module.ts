@@ -18,11 +18,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AdminComponent } from './Components/admin/admin.component';
 import { DeliveryComponent } from './Components/delivery/delivery.component';
+import { DriverComponent } from './Components/driver/driver.component';
 import { HomeComponent } from './Components/home/home.component';
 import { LoginComponent } from './Components/login/login.component';
 import { PackageComponent } from './Components/package/package.component';
 import { PaginatorComponent } from './Components/paginator/paginator.component';
 import { RegisterComponent } from './Components/register/register.component';
+import { TrackerComponent } from './Components/tracker/tracker.component';
 import { UserComponent } from './Components/user/user.component';
 import { authInterceptorProviders } from './Interceptor/auth.interceptor';
 import { MaterialModule } from './material.module';
@@ -47,6 +49,8 @@ export function tokenGetter() {
     PackageComponent,
     DeliveryComponent,
     PaginatorComponent,
+    TrackerComponent,
+    DriverComponent,
   ],
   imports: [
     BrowserModule,

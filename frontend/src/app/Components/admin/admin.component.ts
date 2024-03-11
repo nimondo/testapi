@@ -3,7 +3,6 @@ import { PageEvent } from '@angular/material/paginator';
 
 import { DeliveryService } from 'src/app/Services/delivery.service';
 import { PackageService } from 'src/app/Services/package.service';
-import { UserService } from 'src/app/Services/user.service';
 
 @Component({
   selector: 'app-admin',
@@ -18,7 +17,6 @@ export class AdminComponent {
   pageSizeDelivery!: number;
   totalItemsDelivery!: number;
   constructor(
-    private userService: UserService,
     private deliveryService: DeliveryService,
     private packageService: PackageService
   ) {

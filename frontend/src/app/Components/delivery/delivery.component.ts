@@ -77,21 +77,26 @@ export class DeliveryComponent {
       console.log('data', deliveryData);
       this.deliveryService.Create(deliveryData).subscribe((delivery) => {
         console.log('delivery', delivery);
-        console.log('delivery id', deliveryData.package_id);
         for (const package_id of deliveryData.package_id) {
+          console.log('delivery id', package_id, deliveryData._id);
           this.packageService
-            .Update(package_id, { active_delivery_id: delivery.id })
-            .subscribe(() => {});
+            .Update(package_id, { active_delivery_id: deliveryData._id })
+            .subscribe(() => {
+              this._snackBar.open(
+                'Your delivery has been created successfully',
+                '✔️'
+              );
+            });
         }
       });
 
-      setTimeout(() => {
-        window.location.href = '/signin';
-        this._snackBar.open(
-          'Your delivery has been created successfully',
-          '✔️'
-        );
-      }, 2000);
+      // setTimeout(() => {
+      //   window.location.href = '/admin';
+      //   this._snackBar.open(
+      //     'Your delivery has been created successfully',
+      //     '✔️'
+      //   );
+      // }, 2000);
     } else {
       console.log(this.form);
       this._snackBar.open('Enter a valid informations !!!', '❌');

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
+
 import { AuthService } from 'src/app/Services/auth.service';
 import { UserService } from 'src/app/Services/user.service';
-import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-user',
@@ -11,7 +11,7 @@ import { User } from 'src/app/models/user';
 export class UserComponent {
   //save userId in a varibale
   userId: string = '';
-  userInfo: User = new User();
+  userInfo: any = {};
   constructor(
     private userService: UserService,
     private authService: AuthService
@@ -22,8 +22,8 @@ export class UserComponent {
 
   //get User Info
   refreshProfile() {
-    this.userService.get(this.userId).subscribe((response: User) => {
-      this.userInfo = response;
-    });
+    this.userInfo.userId = this.authService.getUserId();
+    this.userInfo.email = this.authService.getUser();
+    this.userInfo.role = this.authService.getRole();
   }
 }

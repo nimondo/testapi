@@ -23,7 +23,7 @@
               >
                 <option
                   *ngFor="let package of packages; index as i"
-                  [value]="package.package_id"
+                  [value]="package._id"
                 >
                   {{ package.description }}
                 </option>

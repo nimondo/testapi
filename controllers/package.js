@@ -22,8 +22,9 @@ exports.createPackage = (req, res, next) => {
 };
 exports.getOnePackage = (req, res, next) => {
   Package.findOne({
-    package_id: req.params.id,
+    _id: req.params.id,
   })
+    .populate("active_delivery_id")
     .then((package) =>
       res.status(200).json({
         package,

@@ -2,7 +2,7 @@
   <!-- ==== NAVBAR ==== -->
   <nav class="nav">
     <div class="logo">
-      <h2 routerLink="/Home" style="cursor: pointer;">Gozem test</h2>
+      <h2 routerLink="/Home" style="cursor: pointer">Gozem test</h2>
     </div>
 
     <div class="nav_menu" id="nav_menu">
@@ -14,17 +14,28 @@
         <li class="nav_menu_item" routerLinkActive="active" *ngIf="isLoggedIn">
           <a routerLink="/user" class="nav_menu_link">User</a>
         </li>
-        <li class="nav_menu_item" routerLinkActive="active" *ngIf="isLoggedIn && (role == 'driver' || role == 'admin')">
-          <a routerLink="/admin" class="nav_menu_link">Driver</a>
+        <li
+          class="nav_menu_item"
+          routerLinkActive="active"
+          *ngIf="isLoggedIn && (role == 'driver' || role == 'admin')"
+        >
+          <a routerLink="/driver" class="nav_menu_link">Driver</a>
         </li>
-        <li class="nav_menu_item" routerLinkActive="active" *ngIf="isLoggedIn && role == 'admin'">
+        <li
+          class="nav_menu_item"
+          routerLinkActive="active"
+          *ngIf="isLoggedIn && role == 'admin'"
+        >
           <a routerLink="/admin" class="nav_menu_link">Admin</a>
         </li>
-        <li class="nav_menu_item" routerLinkActive="active"
-          *ngIf="isLoggedIn && (role == 'customer' || role == 'admin')">
-          <a routerLink="/admin" class="nav_menu_link">Customer</a>
+        <li
+          class="nav_menu_item"
+          routerLinkActive="active"
+          *ngIf="isLoggedIn && (role == 'customer' || role == 'admin')"
+        >
+          <a routerLink="/tracker" class="nav_menu_link">Tracker</a>
         </li>
-        <li class="nav_menu_item" *ngIf="isLoggedIn" style="cursor: pointer;">
+        <li class="nav_menu_item" *ngIf="isLoggedIn" style="cursor: pointer">
           <a (click)="signOut()" class="nav_menu_link">LogOut</a>
         </li>
         <li class="nav_menu_item" routerLinkActive="active" *ngIf="!isLoggedIn">
@@ -35,12 +46,12 @@
         </li>
         <li class="nav_menu_item" *ngIf="isLoggedIn">
           <p class="toggle_btn">
-            {{getUserName()}}
+            {{ getUserName() }}
           </p>
         </li>
       </ul>
     </div>
   </nav>
-  <hr>
+  <hr />
 </header>
 <router-outlet></router-outlet>

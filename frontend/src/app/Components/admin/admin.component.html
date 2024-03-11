@@ -55,7 +55,7 @@
       </nav>
     </div>
     <div class="col-md-4 col-lg-6 col-xl-6">
-      <div class="btn_wrapper">
+      <div class="d-flex justify-content-center mt-5">
         <a routerLink="/package" class="btn view_more_btn"> Create package </a>
       </div>
     </div>
@@ -68,16 +68,17 @@
           <tr>
             <th scope="col">#</th>
             <th scope="col">location</th>
+            <!--
             <th scope="col">pickup_time</th>
             <th scope="col">start_time</th>
-            <th scope="col">end_time</th>
+                        <th scope="col">end_time</th>
+            -->
             <th scope="col">status</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let delivery of deliveries">
             <th scope="row">{{ delivery._id }}</th>
-            <td>{{ delivery.description }}</td>
             <td>
               lat:{{ delivery.location.lat }}, long:{{ delivery.location.long }}
             </td>
@@ -96,7 +97,7 @@
       </nav>
     </div>
     <div class="col-md-4 col-lg-6 col-xl-6">
-      <div class="btn_wrapper center">
+      <div class="d-flex justify-content-center mt-5">
         <a routerLink="/delivery" class="btn view_more_btn">
           Create delivery
         </a>
