@@ -15,6 +15,7 @@ import { DeliveryService } from 'src/app/Services/delivery.service';
 export class DriverComponent {
   packages: any;
   delivery: any;
+  markerData: any[] = [];
   filterForm: FormGroup = new FormGroup({
     searchFilter: new FormControl<string>(''),
   });
@@ -50,6 +51,31 @@ export class DriverComponent {
       next: (res) => {
         this.packages = res.delivery?.package_id;
         this.delivery = res.delivery;
+        console.log(this.delivery);
+        this.markerData = [
+          {
+            position: {
+              lat: this.packages.from_location.lat,
+              long: this.packages.from_location.long,
+            },
+            color: 'red',
+          },
+          {
+            position: {
+              lat: this.packages.to_location.lat,
+              long: this.packages.to_location.long,
+            },
+            color: 'red',
+          },
+          {
+            position: {
+              lat: this.delivery?.location?.lat,
+              long: this.delivery?.location?.long,
+            },
+            color: 'blue',
+          },
+        ];
+        console.log(this.markerData, this.delivery);
       },
     });
   }

@@ -1,5 +1,6 @@
 import {
   Component,
+  Input,
   ViewChild,
 } from '@angular/core';
 import {
@@ -15,12 +16,17 @@ import {
 })
 export class MapComponent {
   loading = false;
-
+  @Input() markerData!: any;
   @ViewChild(GoogleMap, { static: false }) map!: GoogleMap;
   @ViewChild(MapInfoWindow, { static: false }) infoWindow!: MapInfoWindow;
 
+  markers: any[] = [];
   mapZoom = 12;
-  mapCenter!: google.maps.LatLng;
+  point = {
+    lat: 6.13365,
+    lng: 1.22311,
+  };
+  mapCenter: google.maps.LatLng = new google.maps.LatLng(this.point);
   mapOptions: google.maps.MapOptions = {
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     zoomControl: true,
@@ -36,27 +42,25 @@ export class MapComponent {
     animation: google.maps.Animation.DROP,
   };
 
-  showLocation() {
-    this.loading = true;
-    const point = {
-      lat: 6.13365,
-      lng: 1.22311,
-    };
-    this.mapCenter = new google.maps.LatLng(point);
-    this.map.panTo(point);
-
-    this.markerInfoContent = "I'm here!";
-
-    this.markerOptions = {
-      draggable: false,
-      animation: google.maps.Animation.DROP,
-    };
-  }
   openInfoWindow(marker: MapMarker) {
     // this is called when the marker is clicked.
     this.infoWindow.open(marker);
   }
   ngOnInit() {
-    this.showLocation();
+    this.addMarker(this.markerData);
+    console.log(this.markers);
+  }
+  addMarker(markerData: any[]) {
+    for (const marker of markerData) {
+      this.markers.push({
+        position: marker.position,
+        label: {
+          color: marker.color,
+          text: 'Marker label ' + (this.markers.length + 1),
+        },
+        title: 'Marker title ' + (this.markers.length + 1),
+        options: { animation: google.maps.Animation.BOUNCE },
+      });
+    }
   }
 }

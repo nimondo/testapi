@@ -54,8 +54,8 @@
                     <tr>
                       <th scope="col">location</th>
                       <td>
-                        lat:{{ delivery?.from_location?.lat }}, long:{{
-                          delivery?.from_location?.long
+                        lat:{{ delivery?.location?.lat }}, long:{{
+                          delivery?.location?.long
                         }}
                       </td>
                     </tr>
@@ -135,7 +135,7 @@
       <div
         class="col-md-9 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2"
       >
-        <app-map></app-map>
+        <app-map [markerData]="markerData"></app-map>
       </div>
     </div>
   </div>
