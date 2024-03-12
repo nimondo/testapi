@@ -87,41 +87,9 @@ export class TrackerComponent {
   //   // this.filterFormSubsription.unsubscribe();
   // }
   ngOnInit(): void {
-    this.deliveryData = this.socket.fromEvent<any>('newdelivery');
-    if (this.deliveryData.package_id.includes(this.package._id)) {
-      this.packageService.get(this.package._id).subscribe({
-        next: (res) => {
-          this.package = res.package;
-          this.delivery = res.package?.active_delivery_id;
-          this.markerdata = [
-            {
-              position: new google.maps.LatLngAltitude({
-                lat: parseFloat(this.delivery?.location?.lat),
-                lng: parseFloat(this.delivery?.location?.long),
-              }),
-              color: 'blue',
-              icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
-            },
-          ];
-          this.package.push({
-            position: {
-              lat: Number(this.package?.from_location?.lat),
-              lng: Number(this.package?.from_location?.long),
-            },
-            color: 'red',
-          });
-          this.markerdata.push({
-            position: {
-              lat: Number(this.package.to_location?.lat),
-              lng: Number(this.package?.to_location?.long),
-            },
-            color: 'red',
-          });
-          this.addMarker(this.markerdata);
-        },
-      });
-    }
-    this.deliveryData = this.socket.fromEvent<any>('delivery');
+    this.deliveryData =
+      this.socket.fromEvent<any>('newdelivery') ||
+      this.socket.fromEvent<any>('delivery');
     if (this.deliveryData.package_id.includes(this.package._id)) {
       this.packageService.get(this.package._id).subscribe({
         next: (res) => {
