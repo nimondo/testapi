@@ -6,6 +6,7 @@ import {
 } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+import { Socket } from 'ngx-socket-io';
 import { ErrorsStateMatcher } from 'src/app/Error-state-matcher';
 import { DeliveryService } from 'src/app/Services/delivery.service';
 import { PackageService } from 'src/app/Services/package.service';
@@ -21,7 +22,8 @@ export class DeliveryComponent {
   constructor(
     private deliveryService: DeliveryService,
     private packageService: PackageService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private socket: Socket
   ) {}
 
   getAllPackages() {
@@ -77,6 +79,10 @@ export class DeliveryComponent {
       console.log('data', deliveryData);
       this.deliveryService.Create(deliveryData).subscribe((delivery) => {
         console.log('delivery', delivery);
+        this.socket.emit('addDelivery', {
+          id: deliveryData._id,
+          data: delivery,
+        });
         for (const package_id of deliveryData.package_id) {
           console.log('delivery id', package_id, deliveryData._id);
           this.packageService

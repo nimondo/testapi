@@ -13,6 +13,11 @@ import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import {
+  SocketIoConfig,
+  SocketIoModule,
+} from 'ngx-socket-io';
+
 import { JwtModule } from '@auth0/angular-jwt';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -40,6 +45,7 @@ export function tokenGetter() {
   return sessionStorage.getItem('TOKEN_KEY');
 }
 
+const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,6 +76,7 @@ export function tokenGetter() {
       },
     }),
     GoogleMapsModule,
+    SocketIoModule.forRoot(config),
   ],
   providers: [
     authInterceptorProviders,

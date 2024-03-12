@@ -35,6 +35,23 @@ const limiter = rateLimit({
 const app = express();
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
+io.on("connection", (socket) => {
+  console.log("connected");
+
+  socket.on("addDelivery", (delivery) => {
+    io.emit("newDelivery", delivery);
+    socket.emit("newDelivery", delivery);
+  });
+
+  socket.on("editDelivery", (doc) => {
+    io.emit("Delivery", delivery);
+    socket.emit("Delivery", delivery);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("disconnected!");
+  });
+});
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(

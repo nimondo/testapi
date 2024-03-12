@@ -12,6 +12,7 @@ import {
   MapMarker,
 } from '@angular/google-maps';
 
+import { Socket } from 'ngx-socket-io';
 import { Subscription } from 'rxjs';
 import { DeliveryService } from 'src/app/Services/delivery.service';
 
@@ -81,7 +82,10 @@ export class DriverComponent {
   });
   searchFilter: string = '';
   filterFormSubsription!: Subscription;
-  constructor(private deliveryService: DeliveryService) {}
+  constructor(
+    private deliveryService: DeliveryService,
+    private socket: Socket
+  ) {}
   ngOnDestroy(): void {
     // this.filterFormSubsription.unsubscribe();
   }
@@ -161,6 +165,7 @@ export class DriverComponent {
     console.log('res data', data);
     this.deliveryService.Update(id, data).subscribe({
       next: (res) => {
+        this.socket.emit('editDelivery', { id: id });
         console.log('res data', res);
 
         delete this.delivery.status;
