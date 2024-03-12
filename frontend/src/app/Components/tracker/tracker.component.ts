@@ -12,6 +12,7 @@ import {
   MapMarker,
 } from '@angular/google-maps';
 
+import { Socket } from 'ngx-socket-io';
 import { PackageService } from 'src/app/Services/package.service';
 
 @Component({
@@ -74,17 +75,86 @@ export class TrackerComponent {
   }
   package: any;
   delivery: any;
+  deliveryData: any;
   markerdata: any[] = [];
   filterForm: FormGroup = new FormGroup({
     searchFilter: new FormControl<string>(''),
   });
   searchFilter: string = '';
   // filterFormSubsription!: Subscription;
-  constructor(private packageService: PackageService) {}
+  constructor(private packageService: PackageService, private socket: Socket) {}
   // ngOnDestroy(): void {
   //   // this.filterFormSubsription.unsubscribe();
   // }
   ngOnInit(): void {
+    this.deliveryData = this.socket.fromEvent<any>('newdelivery');
+    if (this.deliveryData.package_id.includes(this.package._id)) {
+      this.packageService.get(this.package._id).subscribe({
+        next: (res) => {
+          this.package = res.package;
+          this.delivery = res.package?.active_delivery_id;
+          this.markerdata = [
+            {
+              position: new google.maps.LatLngAltitude({
+                lat: parseFloat(this.delivery?.location?.lat),
+                lng: parseFloat(this.delivery?.location?.long),
+              }),
+              color: 'blue',
+              icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+            },
+          ];
+          this.package.push({
+            position: {
+              lat: Number(this.package?.from_location?.lat),
+              lng: Number(this.package?.from_location?.long),
+            },
+            color: 'red',
+          });
+          this.markerdata.push({
+            position: {
+              lat: Number(this.package.to_location?.lat),
+              lng: Number(this.package?.to_location?.long),
+            },
+            color: 'red',
+          });
+          this.addMarker(this.markerdata);
+        },
+      });
+    }
+    this.deliveryData = this.socket.fromEvent<any>('delivery');
+    if (this.deliveryData.package_id.includes(this.package._id)) {
+      this.packageService.get(this.package._id).subscribe({
+        next: (res) => {
+          this.package = res.package;
+          this.delivery = res.package?.active_delivery_id;
+          this.markerdata = [
+            {
+              position: new google.maps.LatLngAltitude({
+                lat: parseFloat(this.delivery?.location?.lat),
+                lng: parseFloat(this.delivery?.location?.long),
+              }),
+              color: 'blue',
+              icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+            },
+          ];
+          this.package.push({
+            position: {
+              lat: Number(this.package?.from_location?.lat),
+              lng: Number(this.package?.from_location?.long),
+            },
+            color: 'red',
+          });
+          this.markerdata.push({
+            position: {
+              lat: Number(this.package.to_location?.lat),
+              lng: Number(this.package?.to_location?.long),
+            },
+            color: 'red',
+          });
+          this.addMarker(this.markerdata);
+        },
+      });
+    }
     // this.filterFormSubsription = this.filterForm.valueChanges
     //   .pipe(debounceTime(400))
     //   .subscribe((changes) => {
