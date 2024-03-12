@@ -67,3 +67,4 @@ start the project:
     $ npm start
 
 In the "backend" folder rename the file ".env.example" to ".env" and fill in the missing data inside.
+Api docs urls http://localhost:3000/api-docs
