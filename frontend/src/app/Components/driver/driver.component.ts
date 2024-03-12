@@ -142,4 +142,8 @@ export class DriverComponent {
       },
     });
   }
+  onPickedUp(id: string) {}
+  onInTransit(id: string) {}
+  onDelivered(id: string) {}
+  onFailed(id: string) {}
 }

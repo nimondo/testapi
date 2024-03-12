@@ -133,23 +133,54 @@
       </div>
       <!--Image-->
       <div class="col-md-5 col-lg-5 col-xl-5 d-flex align-items-center">
-        <div class="google_map_container">
-          <google-map
-            [zoom]="mapZoom"
-            [center]="mapCenter"
-            [options]="mapOptions"
-          >
-            <map-marker
-              *ngFor="let marker of markers"
-              [position]="marker.position"
-              [label]="marker.label"
-              [title]="marker.title"
-              [icon]="marker.icon"
-              (mapClick)="openInfoWindow(marker)"
+        <div class="row">
+          <div class="col-8">
+            <div class="google_map_container">
+              <google-map
+                [zoom]="mapZoom"
+                [center]="mapCenter"
+                [options]="mapOptions"
+                width="100%"
+              >
+                <map-marker
+                  *ngFor="let marker of markers"
+                  [position]="marker.position"
+                  [label]="marker.label"
+                  [title]="marker.title"
+                  [icon]="marker.icon"
+                  (mapClick)="openInfoWindow(marker)"
+                >
+                </map-marker>
+                <map-info-window>{{ markerInfoContent }}</map-info-window>
+              </google-map>
+            </div>
+          </div>
+          <div class="col-4">
+            <button
+              class="btn btn-primary mt-5 btn-w"
+              (click)="onPickedUp(delivery.id)"
             >
-            </map-marker>
-            <map-info-window>{{ markerInfoContent }}</map-info-window>
-          </google-map>
+              Picked up
+            </button>
+            <button
+              class="btn btn-warning mt-5 btn-w"
+              (click)="onInTransit(delivery.id)"
+            >
+              in-Transit
+            </button>
+            <button
+              class="btn btn-success mt-5 btn-w"
+              (click)="onDelivered(delivery.id)"
+            >
+              Delivered
+            </button>
+            <button
+              class="btn btn-danger mt-5 btn-w"
+              (click)="onFailed(delivery.id)"
+            >
+              Failed
+            </button>
+          </div>
         </div>
       </div>
     </div>
