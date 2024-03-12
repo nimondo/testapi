@@ -142,8 +142,32 @@ export class DriverComponent {
       },
     });
   }
-  onPickedUp(id: string) {}
-  onInTransit(id: string) {}
-  onDelivered(id: string) {}
-  onFailed(id: string) {}
+  onPickedUp(id: string = '') {
+    console.log('id', id);
+    if (id) {
+      this.updateData(id, { status: 'picked-up', pickup_time: new Date() });
+    }
+  }
+  onInTransit(id: string) {
+    this.updateData(id, { status: 'in-transit', start_time: new Date() });
+  }
+  onDelivered(id: string) {
+    this.updateData(id, { status: 'delivered', end_time: new Date() });
+  }
+  onFailed(id: string) {
+    this.updateData(id, { status: 'failed', start_time: new Date() });
+  }
+  updateData(id: string, data: any) {
+    console.log('res data', data);
+    this.deliveryService.Update(id, data).subscribe({
+      next: (res) => {
+        console.log('res data', res);
+
+        delete this.delivery.status;
+        this.delivery = Object.assign(data);
+
+        console.log('after update', this.delivery);
+      },
+    });
+  }
 }

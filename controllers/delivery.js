@@ -93,7 +93,7 @@ exports.updateDelivery = (req, res, next) => {
       _id: req.params.id,
     }
   )
-    .then(() =>
+    .then((data) =>
       res.status(200).json({
         message: "Updated",
       })

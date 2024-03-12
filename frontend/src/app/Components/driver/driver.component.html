@@ -158,25 +158,25 @@
           <div class="col-4">
             <button
               class="btn btn-primary mt-5 btn-w"
-              (click)="onPickedUp(delivery.id)"
+              (click)="onPickedUp(delivery._id)"
             >
               Picked up
             </button>
             <button
               class="btn btn-warning mt-5 btn-w"
-              (click)="onInTransit(delivery.id)"
+              (click)="onInTransit(delivery._id)"
             >
               in-Transit
             </button>
             <button
               class="btn btn-success mt-5 btn-w"
-              (click)="onDelivered(delivery.id)"
+              (click)="onDelivered(delivery._id)"
             >
               Delivered
             </button>
             <button
               class="btn btn-danger mt-5 btn-w"
-              (click)="onFailed(delivery.id)"
+              (click)="onFailed(delivery._id)"
             >
               Failed
             </button>
