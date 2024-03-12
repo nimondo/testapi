@@ -12,7 +12,6 @@ import {
   MapMarker,
 } from '@angular/google-maps';
 
-import { Subscription } from 'rxjs';
 import { PackageService } from 'src/app/Services/package.service';
 
 @Component({
@@ -80,11 +79,11 @@ export class TrackerComponent {
     searchFilter: new FormControl<string>(''),
   });
   searchFilter: string = '';
-  filterFormSubsription!: Subscription;
+  // filterFormSubsription!: Subscription;
   constructor(private packageService: PackageService) {}
-  ngOnDestroy(): void {
-    this.filterFormSubsription.unsubscribe();
-  }
+  // ngOnDestroy(): void {
+  //   // this.filterFormSubsription.unsubscribe();
+  // }
   ngOnInit(): void {
     // this.filterFormSubsription = this.filterForm.valueChanges
     //   .pipe(debounceTime(400))
