@@ -135,7 +135,24 @@
       <div
         class="col-md-9 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2"
       >
-        <app-map [markerData]="markerData"></app-map>
+        <div class="google_map_container">
+          <google-map
+            [zoom]="mapZoom"
+            [center]="mapCenter"
+            [options]="mapOptions"
+          >
+            <map-marker
+              *ngFor="let marker of markers"
+              [position]="marker.position"
+              [label]="marker.label"
+              [title]="marker.title"
+              [icon]="marker.icon"
+              (mapClick)="openInfoWindow(marker)"
+            >
+            </map-marker>
+            <map-info-window>{{ markerInfoContent }}</map-info-window>
+          </google-map>
+        </div>
       </div>
     </div>
   </div>

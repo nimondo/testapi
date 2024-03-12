@@ -46,11 +46,15 @@ export class MapComponent {
     // this is called when the marker is clicked.
     this.infoWindow.open(marker);
   }
-  ngOnInit() {
+  ngOnAfterViewInit() {
+    console.log(this.markers);
     this.addMarker(this.markerData);
+  }
+  ngOnInit() {
     console.log(this.markers);
   }
   addMarker(markerData: any[]) {
+    console.log('marketer', markerData);
     for (const marker of markerData) {
       this.markers.push({
         position: marker.position,
