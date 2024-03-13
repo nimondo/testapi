@@ -37,7 +37,27 @@ const errorHandler = (error) => {
 };
 
 const server = http.createServer(app);
+const io = require("socket.io")(server);
+io.on("connection", (socket) => {
+  console.log("a user connected");
+  socket.on("addDelivery", (delivery) => {
+    io.emit("newDelivery", delivery);
+    socket.emit("newDelivery", delivery);
+  });
 
+  socket.on("editDelivery", (delivery) => {
+    console.log("here");
+    io.emit("Delivery", delivery);
+    socket.emit("Delivery", delivery);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("disconnected!");
+  });
+  socket.on("disconnect", () => {
+    console.log("user disconnected");
+  });
+});
 server.on("error", errorHandler);
 server.on("listening", () => {
   const address = server.address();
