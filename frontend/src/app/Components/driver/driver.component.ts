@@ -165,6 +165,12 @@ export class DriverComponent {
     this.deliveryService.Update(id, data).subscribe({
       next: (res) => {
         this.socket.emit('editDelivery', { id: id });
+        this.socket.fromEvent<any>('documents').subscribe({
+          next: (data) => {
+            console.log('data', data);
+          },
+        });
+
         console.log('res data', res);
 
         delete this.delivery.status;
