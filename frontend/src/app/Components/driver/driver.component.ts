@@ -162,16 +162,15 @@ export class DriverComponent {
     this.updateData(id, { status: 'failed', start_time: new Date() });
   }
   updateData(id: string, data: any) {
-    console.log('res data', data);
     this.deliveryService.Update(id, data).subscribe({
       next: (res) => {
         this.socket.emit('editDelivery', { id: id });
         console.log('res data', res);
 
         delete this.delivery.status;
-        this.delivery = Object.assign(data);
+        this.delivery = { ...this.delivery, ...data };
 
-        console.log('after update', this.delivery);
+        // console.log('after update', this.delivery);
       },
     });
   }

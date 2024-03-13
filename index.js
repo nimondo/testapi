@@ -37,25 +37,27 @@ const errorHandler = (error) => {
 };
 
 const server = http.createServer(app);
-const io = require("socket.io")(server);
+const io = require("socket.io")(server, {
+  cors: {
+    origin: "http://localhost:3000", // client address
+  },
+});
 io.on("connection", (socket) => {
-  console.log("a user connected");
+  console.log("connected");
   socket.on("addDelivery", (delivery) => {
+    console.log("addDelivery");
     io.emit("newDelivery", delivery);
     socket.emit("newDelivery", delivery);
   });
 
   socket.on("editDelivery", (delivery) => {
-    console.log("here");
+    console.log("editDelivery");
     io.emit("Delivery", delivery);
     socket.emit("Delivery", delivery);
   });
 
   socket.on("disconnect", () => {
     console.log("disconnected!");
-  });
-  socket.on("disconnect", () => {
-    console.log("user disconnected");
   });
 });
 server.on("error", errorHandler);
