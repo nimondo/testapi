@@ -107,6 +107,10 @@ export class DriverComponent {
       });
     }
 
+    this.socket.on('connect', () => {
+      console.log('Connected to server 2');
+    });
+
     // this.filterFormSubsription = this.filterForm.valueChanges
     //   .pipe(debounceTime(400))
     //   .subscribe((changes) => {
