@@ -13,7 +13,10 @@ import {
 } from '@angular/google-maps';
 
 import { Socket } from 'ngx-socket-io';
-import { Subscription } from 'rxjs';
+import {
+  interval,
+  Subscription,
+} from 'rxjs';
 import { DeliveryService } from 'src/app/Services/delivery.service';
 
 @Component({
@@ -56,6 +59,7 @@ export class DriverComponent {
   addMarker(markerData: any[]) {
     for (const marker of markerData) {
       console.log(typeof marker.position.lat);
+      this.markers = [];
       this.markers.push({
         position: marker.position,
         label: {
@@ -95,6 +99,14 @@ export class DriverComponent {
     return this.filterForm.get('searchFilter');
   }
   ngOnInit(): void {
+    this.setCurrentLocation();
+    if (!['delivered', 'failed'].includes(this.delivery?.status)) {
+      interval(20000).subscribe(() => {
+        this.setCurrentLocation();
+        // console.log('test', val);
+      });
+    }
+
     // this.filterFormSubsription = this.filterForm.valueChanges
     //   .pipe(debounceTime(400))
     //   .subscribe((changes) => {
@@ -179,5 +191,50 @@ export class DriverComponent {
         // console.log('after update', this.delivery);
       },
     });
+  }
+  private setCurrentLocation() {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          console.log('position', position);
+          this.point.lat = position.coords.latitude;
+          this.point.lng = position.coords.longitude;
+          this.updateMarker(this.point);
+        },
+        (error) => {
+          this.point.lat = 6.13365;
+          this.point.lng = 1.22311;
+          this.updateMarker(this.point);
+        }
+      );
+    } else {
+      this.point.lat = 6.13365;
+      this.point.lng = 1.22311;
+      this.updateMarker(this.point);
+    }
+  }
+
+  updateMarker(point: any) {
+    console.log();
+    if (this.markerdata.length == 0) {
+      this.markerdata = [
+        {
+          position: new google.maps.LatLngAltitude(point),
+          color: 'blue',
+          icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+        },
+      ];
+    } else {
+      this.markerdata[0].position = new google.maps.LatLngAltitude(point);
+    }
+    this.addMarker(this.markerdata);
+    if (this.delivery?._id) {
+      this.updateData(this.delivery._id, {
+        location: {
+          lat: point.lat,
+          long: point.lng,
+        },
+      });
+    }
   }
 }
