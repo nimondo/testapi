@@ -48,14 +48,14 @@ io.on("connection", (socket) => {
   console.log("connected");
   socket.on("addDelivery", (delivery) => {
     console.log("addDelivery");
-    io.emit("newDelivery", delivery);
-    socket.emit("newDelivery", delivery);
+    // io.broadcast("delivery", delivery);
+    socket.broadcast.emit("delivery", delivery);
   });
 
   socket.on("editDelivery", (delivery) => {
     console.log("editDelivery");
-    io.emit("Delivery", delivery);
-    socket.emit("Delivery", delivery);
+    // io.broadcast("delivery_updated", delivery);
+    socket.broadcast.emit("delivery_updated", delivery);
   });
 
   socket.on("disconnect", () => {

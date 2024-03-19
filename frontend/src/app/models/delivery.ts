@@ -1,12 +1,12 @@
 import { Location } from './location';
 
-enum State {
-  open = 'open',
-  pickedUp = 'picked-up',
-  inTransit = 'in-transit',
-  delivered = 'delivered',
-  failed = 'failed',
-}
+// enum State {
+//   open = 'open',
+//   pickedUp = 'picked-up',
+//   inTransit = 'in-transit',
+//   delivered = 'delivered',
+//   failed = 'failed',
+// }
 export class Delivery {
   _id: string;
   // user: string;
@@ -15,7 +15,7 @@ export class Delivery {
   start_time: Date;
   end_time: Date;
   location: Location;
-  status: State;
+  status: string;
 
   constructor() {
     this._id = '';
@@ -25,6 +25,6 @@ export class Delivery {
     this.start_time = new Date();
     this.end_time = new Date();
     this.location = new Location();
-    this.status = State.open;
+    this.status = 'open';
   }
 }

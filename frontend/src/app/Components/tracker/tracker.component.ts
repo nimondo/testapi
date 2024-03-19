@@ -55,6 +55,7 @@ export class TrackerComponent {
   addMarker(markerData: any[]) {
     for (const marker of markerData) {
       console.log(typeof marker.position.lat);
+      this.markers = [];
       this.markers.push({
         position: marker.position,
         label: {
@@ -87,10 +88,14 @@ export class TrackerComponent {
   //   // this.filterFormSubsription.unsubscribe();
   // }
   ngOnInit(): void {
+    this.socket.on('connect', () => {
+      console.log('Connected to server tracker');
+    });
     this.deliveryData =
-      this.socket.fromEvent<any>('newdelivery') ||
+      this.socket.fromEvent<any>('delivery_updated') ||
       this.socket.fromEvent<any>('delivery');
-    if (this.deliveryData.package_id.includes(this.package._id)) {
+
+    if (this.deliveryData.package_id?.includes(this.package._id)) {
       this.packageService.get(this.package._id).subscribe({
         next: (res) => {
           this.package = res.package;
@@ -159,7 +164,7 @@ export class TrackerComponent {
             icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
           },
         ];
-        this.package.push({
+        this.markerdata.push({
           position: {
             lat: Number(this.package?.from_location?.lat),
             lng: Number(this.package?.from_location?.long),
