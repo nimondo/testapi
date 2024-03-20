@@ -25,6 +25,6 @@ export class Delivery {
     this.start_time = new Date();
     this.end_time = new Date();
     this.location = new Location();
-    this.status = 'open';
+    this.status = '';
   }
 }

@@ -57,9 +57,8 @@ export class DriverComponent {
   }
 
   addMarker(markerData: any[]) {
+    this.markers = [];
     for (const marker of markerData) {
-      console.log(typeof marker.position.lat);
-      this.markers = [];
       this.markers.push({
         position: marker.position,
         label: {
@@ -76,7 +75,6 @@ export class DriverComponent {
         //icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
       });
     }
-    console.log(this.markers);
   }
   packages: any;
   delivery: any;
@@ -100,11 +98,12 @@ export class DriverComponent {
   }
   ngOnInit(): void {
     this.setCurrentLocation();
-    if (!['delivered', 'failed'].includes(this.delivery?.status)) {
-      interval(20000).subscribe(() => {
-        this.setCurrentLocation();
-        // console.log('test', val);
-      });
+    let subscribe = interval(20000).subscribe((val) => {
+      this.setCurrentLocation();
+      // console.log('test', val);
+    });
+    if (['delivered', 'failed'].includes(this.delivery?.status)) {
+      subscribe.unsubscribe();
     }
 
     this.socket.on('connect', () => {
@@ -126,12 +125,10 @@ export class DriverComponent {
   }
   // submit fntc
   onSubmit() {
-    console.log('search', this.search?.value);
     this.deliveryService.get(this.search?.value).subscribe({
       next: (res) => {
         this.packages = res.delivery?.package_id;
         this.delivery = res.delivery;
-        console.log(this.delivery);
         this.markerdata = [
           {
             position: new google.maps.LatLngAltitude({
@@ -163,33 +160,56 @@ export class DriverComponent {
     });
   }
   onPickedUp(id: string = '') {
-    console.log('id', id);
     if (id) {
-      this.updateData(id, { status: 'picked-up', pickup_time: new Date() });
+      this.updateData(
+        id,
+        { status: 'picked-up', pickup_time: new Date() },
+        'status_changed'
+      );
     }
   }
   onInTransit(id: string) {
-    this.updateData(id, { status: 'in-transit', start_time: new Date() });
+    this.updateData(
+      id,
+      { status: 'in-transit', start_time: new Date() },
+      'status_changed'
+    );
   }
   onDelivered(id: string) {
-    this.updateData(id, { status: 'delivered', end_time: new Date() });
+    this.updateData(
+      id,
+      { status: 'delivered', end_time: new Date() },
+      'status_changed'
+    );
   }
   onFailed(id: string) {
-    this.updateData(id, { status: 'failed', start_time: new Date() });
+    this.updateData(
+      id,
+      { status: 'failed', start_time: new Date() },
+      'status_changed'
+    );
   }
-  updateData(id: string, data: any) {
+  updateData(id: string, data: any, operation: string) {
     this.deliveryService.Update(id, data).subscribe({
       next: (res) => {
-        this.socket.emit('editDelivery', { id: id });
-        this.socket.fromEvent<any>('documents').subscribe({
-          next: (data) => {
-            console.log('data', data);
-          },
-        });
+        if (operation == 'location_changed') {
+          this.socket.emit('location_changed', { id: id, ...data });
+          this.socket.on('delivery_updated', (data: any) => {
+            console.log('message:', data);
+          });
+        } else {
+          this.socket.emit('status_changed', { id: id, ...data });
+          this.socket.on('delivery_updated', (data: any) => {
+            console.log('message:', data);
+          });
+        }
 
-        console.log('res data', res);
+        // this.socket.fromEvent<any>('editDelivery').subscribe({
+        //   next: (data) => {
+        //     console.log('data', data);
+        //   },
+        // });
 
-        delete this.delivery.status;
         this.delivery = { ...this.delivery, ...data };
 
         // console.log('after update', this.delivery);
@@ -200,7 +220,6 @@ export class DriverComponent {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          console.log('position', position);
           this.point.lat = position.coords.latitude;
           this.point.lng = position.coords.longitude;
           this.updateMarker(this.point);
@@ -219,7 +238,6 @@ export class DriverComponent {
   }
 
   updateMarker(point: any) {
-    console.log();
     if (this.markerdata.length == 0) {
       this.markerdata = [
         {
@@ -233,12 +251,16 @@ export class DriverComponent {
     }
     this.addMarker(this.markerdata);
     if (this.delivery?._id) {
-      this.updateData(this.delivery._id, {
-        location: {
-          lat: point.lat,
-          long: point.lng,
+      this.updateData(
+        this.delivery._id,
+        {
+          location: {
+            lat: point.lat,
+            long: point.lng,
+          },
         },
-      });
+        'location_changed'
+      );
     }
   }
 }
