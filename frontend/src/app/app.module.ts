@@ -35,7 +35,6 @@ import { TrackerComponent } from './Components/tracker/tracker.component';
 import { UserComponent } from './Components/user/user.component';
 import { authInterceptorProviders } from './Interceptor/auth.interceptor';
 import { MaterialModule } from './material.module';
-import { AddressService } from './Services/address.service';
 import { AuthService } from './Services/auth.service';
 import { DataService } from './Services/data.service';
 import { DeliveryService } from './Services/delivery.service';
@@ -81,7 +80,6 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
   providers: [
     authInterceptorProviders,
     DataService,
-    AddressService,
     AuthService,
     DeliveryService,
     PackageService,

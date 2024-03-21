@@ -1,5 +1,4 @@
 const Package = require("../models/package");
-const fs = require("fs");
 
 exports.createPackage = (req, res, next) => {
   const packageData = req.body;

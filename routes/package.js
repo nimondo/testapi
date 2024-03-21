@@ -85,7 +85,7 @@ router.get("/", auth, packageCtrl.getPackages);
  *      '404':
  *        description: Ressource not found.
  */
-router.get("/:id", packageCtrl.getOnePackage);
+router.get("/:id", auth, packageCtrl.getOnePackage);
 /**
  * @swagger
  * /api/packages:
@@ -174,7 +174,7 @@ router.get("/:id", packageCtrl.getOnePackage);
  *           format: string
  *           example: string
  */
-router.post("/", packageCtrl.createPackage);
+router.post("/", auth, packageCtrl.createPackage);
 /**
  * @swagger
  * /api/packages/{package_id}:
@@ -219,7 +219,7 @@ router.post("/", packageCtrl.createPackage);
  *        description: Bad request.
  *    schema:
  */
-router.put("/:id", packageCtrl.updatePackage);
+router.put("/:id", auth, packageCtrl.updatePackage);
 /**
  * @swagger
  * /api/packages/{package_id}:
@@ -265,6 +265,6 @@ router.put("/:id", packageCtrl.updatePackage);
  *    schema:
  *
  */
-router.delete("/:id", packageCtrl.deletePackage);
+router.delete("/:id", auth, packageCtrl.deletePackage);
 
 module.exports = router;

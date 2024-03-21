@@ -78,7 +78,7 @@ router.get("/", auth, deliveryCtrl.getDeliveries);
  *      '404':
  *        description: Ressource not found.
  */
-router.get("/:id", deliveryCtrl.getOneDelivery);
+router.get("/:id", auth, deliveryCtrl.getOneDelivery);
 /**
  * @swagger
  * /api/deliveries:
@@ -145,7 +145,7 @@ router.get("/:id", deliveryCtrl.getOneDelivery);
  *           type: string
  *           enum: ['open', 'picked-up', 'in-transit', 'delivered', 'failed']
  */
-router.post("/", deliveryCtrl.createDelivery);
+router.post("/", auth, deliveryCtrl.createDelivery);
 /**
  * @swagger
  * /api/deliveries/{delivery_id}:
@@ -190,7 +190,7 @@ router.post("/", deliveryCtrl.createDelivery);
  *        description: Bad request.
  *    schema:
  */
-router.put("/:id", deliveryCtrl.updateDelivery);
+router.put("/:id", auth, deliveryCtrl.updateDelivery);
 /**
  * @swagger
  * /api/deliveries/{delivery_id}:
@@ -235,6 +235,6 @@ router.put("/:id", deliveryCtrl.updateDelivery);
  *        description: Bad request.
  *    schema:
  */
-router.delete("/:id", deliveryCtrl.deleteDelivery);
+router.delete("/:id", auth, deliveryCtrl.deleteDelivery);
 
 module.exports = router;

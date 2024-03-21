@@ -1,5 +1,4 @@
 const Delivery = require("../models/delivery");
-const fs = require("fs");
 
 exports.createDelivery = (req, res, next) => {
   const deliveryData = req.body;
