@@ -2,6 +2,7 @@ const express = require("express");
 
 const router = express.Router();
 const auth = require("../middleware/auth");
+const authRole = require("../middleware/authrole");
 const deliveryCtrl = require("../controllers/delivery");
 
 /**
@@ -43,7 +44,7 @@ const deliveryCtrl = require("../controllers/delivery");
  *      '401':
  *        description: Token expired.
  */
-router.get("/", auth, deliveryCtrl.getDeliveries);
+router.get("/", auth, authRole('driver'), deliveryCtrl.getDeliveries);
 /**
  * @swagger
  * /api/deliveries/{delivery_id}:
