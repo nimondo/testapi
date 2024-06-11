@@ -44,7 +44,7 @@ const deliveryCtrl = require("../controllers/delivery");
  *      '401':
  *        description: Token expired.
  */
-router.get("/", auth, authRole('driver'), deliveryCtrl.getDeliveries);
+router.get("/", auth, authRole.authRole('driver'), deliveryCtrl.getDeliveries);
 /**
  * @swagger
  * /api/deliveries/{delivery_id}:
