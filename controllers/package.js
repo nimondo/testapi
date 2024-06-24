@@ -1,5 +1,6 @@
 const Package = require("../models/package");
-
+const uuid = require('uuid')
+// uuid.v4()
 exports.createPackage = (req, res, next) => {
   const packageData = req.body;
   const package = new Package({
@@ -21,8 +22,8 @@ exports.createPackage = (req, res, next) => {
 };
 exports.getOnePackage = (req, res, next) => {
   Package.findOne({
-    _id: req.params.id,
-  })
+      _id: req.params.id,
+    })
     .populate("active_delivery_id")
     .then((package) =>
       res.status(200).json({
@@ -82,15 +83,12 @@ exports.updatePackage = (req, res, next) => {
   const packageData = {
     ...req.body,
   };
-  Package.updateOne(
-    {
+  Package.updateOne({
       _id: req.params.id,
-    },
-    {
+    }, {
       ...packageData,
       _id: req.params.id,
-    }
-  )
+    })
     .then(() =>
       res.status(200).json({
         message: "Updated!",
@@ -105,8 +103,8 @@ exports.updatePackage = (req, res, next) => {
 
 exports.deletePackage = (req, res, next) => {
   Package.deleteOne({
-    _id: req.params.id,
-  })
+      _id: req.params.id,
+    })
     .then(() =>
       res.status(200).json({
         message: "Objet supprimé !",
