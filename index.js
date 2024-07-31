@@ -37,36 +37,8 @@ const errorHandler = (error) => {
 };
 
 const server = http.createServer(app);
-const io = require("socket.io")(server, {
-  cors: true,
-  origins: ["*"],
-  // cors: {
-  //   origin: "http://localhost:3000", // client address
-  // },
-});
-io.on("connection", (socket) => {
-  console.log("connected");
-  socket.on("addDelivery", (delivery) => {
-    console.log("addDelivery");
-    io.emit("delivery", delivery);
-    socket.emit("delivery", delivery);
-  });
+require("./socket")(server); // Modularisation de la configuration Socket.io
 
-  socket.on("location_changed", (delivery) => {
-    console.log("location_changed");
-    io.emit("delivery_updated", delivery);
-    socket.emit("delivery_updated", delivery);
-  });
-  socket.on("status_changed", (delivery) => {
-    console.log("status_changed");
-    io.emit("delivery_updated", delivery);
-    socket.emit("delivery_updated", delivery);
-  });
-
-  socket.on("disconnect", () => {
-    console.log("disconnected!");
-  });
-});
 server.on("error", errorHandler);
 server.on("listening", () => {
   const address = server.address();
