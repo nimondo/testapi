@@ -10,9 +10,9 @@ const userCtrl = require('../controllers/user');
  *    tags:
  *      - User Module 
  *    description: Returns a single person based on their JWT token
- *    operationId: Login user
+ *    operationId: Signup user
  *    requestBody:
- *      description: Login user
+ *      description: Signup user
  *      content:
  *        application/json:
  *          schema:
@@ -41,7 +41,7 @@ const userCtrl = require('../controllers/user');
 router.post('/signup', userCtrl.signup);
 /**
  * @swagger
- * /api/auth/signin:
+ * /api/auth/login:
  *  post:
  *    tags:
  *      - User Module 
@@ -52,13 +52,13 @@ router.post('/signup', userCtrl.signup);
  *      content:
  *        application/json:
  *          schema:
- *            $ref: '#/components/schemas/User'
+ *            $ref: '#/components/schemas/Login'
  *        application/xml:
  *          schema:
- *            $ref: '#/components/schemas/User'
+ *            $ref: '#/components/schemas/Login'
  *        application/x-www-form-urlencoded:
  *          schema:
- *            $ref: '#/components/schemas/User'
+ *            $ref: '#/components/schemas/Login'
  *      required: true
  *    responses:
  *      '201':
@@ -74,8 +74,19 @@ router.post('/signup', userCtrl.signup);
  *        description: Bad credentials.
  *      '400':
  *        description: Bad request.
- *components:
+ * components:
  *  schemas:
+ *    Login:
+ *         required:
+ *          - email
+ *          - password
+ *         type: object
+ *         properties:
+ *          email:
+ *             type: string
+ *             example: fygui
+ *          password:
+ *             type: string
  *    User:
  *         required:
  *          - email

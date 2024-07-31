@@ -44,7 +44,7 @@ const deliveryCtrl = require("../controllers/delivery");
  *      '401':
  *        description: Token expired.
  */
-router.get("/", auth, authRole.authRole('driver'), deliveryCtrl.getDeliveries);
+router.get("/", auth, authRole.authRole('driver'), deliveryCtrl.getAllDeliveries);
 /**
  * @swagger
  * /api/deliveries/{delivery_id}:
@@ -79,7 +79,7 @@ router.get("/", auth, authRole.authRole('driver'), deliveryCtrl.getDeliveries);
  *      '404':
  *        description: Ressource not found.
  */
-router.get("/:id", auth, deliveryCtrl.getOneDelivery);
+router.get("/:id", auth, deliveryCtrl.getDeliveryById);
 /**
  * @swagger
  * /api/deliveries:

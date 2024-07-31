@@ -1,1 +1,89 @@
 2024-07-31T00:33:04.368Z [[32minfo[39m]: Connection to MongoDB successful!
+2024-07-31T12:33:36.409Z [[32minfo[39m]: Connection to MongoDB successful!
+2024-07-31T12:33:54.930Z [[32minfo[39m]: Connection to MongoDB successful!
+2024-07-31T12:34:33.567Z [[32minfo[39m]: Connection to MongoDB successful!
+2024-07-31T12:35:29.805Z [[32minfo[39m]: Connection to MongoDB successful!
+2024-07-31T12:54:17.031Z [[32minfo[39m]: Connection to MongoDB successful!
+2024-07-31T12:55:29.882Z [[32minfo[39m]: Connection to MongoDB successful!
+2024-07-31T12:55:48.066Z [[32minfo[39m]: Connection to MongoDB successful!
+2024-07-31T12:56:50.556Z [[32minfo[39m]: Connection to MongoDB successful!
+2024-07-31T13:40:27.678Z [[32minfo[39m]: Connection to MongoDB successful!
+2024-07-31T13:40:29.497Z [[32minfo[39m]: Connection to MongoDB successful!
+2024-07-31T13:41:12.554Z [[32minfo[39m]: Connection to MongoDB successful!
+2024-07-31T13:41:14.539Z [[32minfo[39m]: Connection to MongoDB successful!
+2024-07-31T13:41:28.993Z [[32minfo[39m]: Connection to MongoDB successful!
+2024-07-31T13:48:02.575Z [[32minfo[39m]: Connection to MongoDB successful!
+2024-07-31T13:48:20.938Z [[32minfo[39m]: Connection to MongoDB successful!
+2024-07-31T17:06:48.138Z [[32minfo[39m]: Connection to MongoDB successful!
+2024-07-31T17:06:59.924Z [[32minfo[39m]: GET /api
+2024-07-31T17:07:00.310Z [[32minfo[39m]: GET /favicon.ico
+2024-07-31T17:07:08.444Z [[32minfo[39m]: GET /api/documentation
+2024-07-31T17:07:14.739Z [[32minfo[39m]: GET /api-docs
+2024-07-31T17:07:14.752Z [[32minfo[39m]: GET /api-docs/
+2024-07-31T17:07:14.810Z [[32minfo[39m]: GET /api-docs/swagger-ui.css
+2024-07-31T17:07:14.815Z [[32minfo[39m]: GET /api-docs/swagger-ui-bundle.js
+2024-07-31T17:07:14.819Z [[32minfo[39m]: GET /api-docs/swagger-ui-standalone-preset.js
+2024-07-31T17:07:14.823Z [[32minfo[39m]: GET /api-docs/swagger-ui-init.js
+2024-07-31T17:07:15.160Z [[32minfo[39m]: GET /api-docs/favicon-32x32.png
+2024-07-31T17:07:33.364Z [[32minfo[39m]: POST /api/auth/signup
+2024-07-31T17:07:33.467Z [[32minfo[39m]: User created successfully
+2024-07-31T17:09:38.398Z [[32minfo[39m]: Connection to MongoDB successful!
+2024-07-31T17:09:49.382Z [[32minfo[39m]: Connection to MongoDB successful!
+2024-07-31T17:09:52.228Z [[32minfo[39m]: GET /api-docs/
+2024-07-31T17:09:52.281Z [[32minfo[39m]: GET /api-docs/swagger-ui.css
+2024-07-31T17:09:52.287Z [[32minfo[39m]: GET /api-docs/swagger-ui-bundle.js
+2024-07-31T17:09:52.290Z [[32minfo[39m]: GET /api-docs/swagger-ui-standalone-preset.js
+2024-07-31T17:09:52.291Z [[32minfo[39m]: GET /api-docs/swagger-ui-init.js
+2024-07-31T17:09:52.641Z [[32minfo[39m]: GET /api-docs/favicon-32x32.png
+2024-07-31T17:10:08.069Z [[32minfo[39m]: POST /api/auth/signup
+2024-07-31T17:10:08.070Z [[33mwarn[39m]: Invalid email format: test
+2024-07-31T17:10:22.158Z [[32minfo[39m]: POST /api/auth/signup
+2024-07-31T17:10:22.271Z [[32minfo[39m]: User created successfully
+2024-07-31T17:10:39.653Z [[32minfo[39m]: POST /api/auth/signup
+2024-07-31T17:10:39.744Z [[31merror[39m]: 500 - User validation failed: role: `adminr` is not a valid enum value for path `role`.
+2024-07-31T17:10:48.420Z [[32minfo[39m]: POST /api/auth/signup
+2024-07-31T17:10:48.508Z [[32minfo[39m]: User created successfully
+2024-07-31T17:11:47.681Z [[32minfo[39m]: Connection to MongoDB successful!
+2024-07-31T17:11:49.559Z [[32minfo[39m]: GET /api-docs/
+2024-07-31T17:11:49.616Z [[32minfo[39m]: GET /api-docs/swagger-ui.css
+2024-07-31T17:11:49.620Z [[32minfo[39m]: GET /api-docs/swagger-ui-bundle.js
+2024-07-31T17:11:49.622Z [[32minfo[39m]: GET /api-docs/swagger-ui-standalone-preset.js
+2024-07-31T17:11:49.627Z [[32minfo[39m]: GET /api-docs/swagger-ui-init.js
+2024-07-31T17:11:49.980Z [[32minfo[39m]: GET /api-docs/favicon-32x32.png
+2024-07-31T17:12:00.796Z [[32minfo[39m]: POST /api/auth/signup
+2024-07-31T17:12:00.809Z [[33mwarn[39m]: User with email admin@test.com already exists
+2024-07-31T17:12:31.784Z [[32minfo[39m]: Connection to MongoDB successful!
+2024-07-31T17:14:44.811Z [[32minfo[39m]: Connection to MongoDB successful!
+2024-07-31T17:14:51.566Z [[32minfo[39m]: Connection to MongoDB successful!
+2024-07-31T17:15:01.899Z [[32minfo[39m]: GET /api-docs/
+2024-07-31T17:15:01.951Z [[32minfo[39m]: GET /api-docs/swagger-ui.css
+2024-07-31T17:15:01.955Z [[32minfo[39m]: GET /api-docs/swagger-ui-bundle.js
+2024-07-31T17:15:01.957Z [[32minfo[39m]: GET /api-docs/swagger-ui-standalone-preset.js
+2024-07-31T17:15:01.963Z [[32minfo[39m]: GET /api-docs/swagger-ui-init.js
+2024-07-31T17:15:02.317Z [[32minfo[39m]: GET /api-docs/favicon-32x32.png
+2024-07-31T17:15:53.143Z [[32minfo[39m]: Connection to MongoDB successful!
+2024-07-31T17:16:12.733Z [[32minfo[39m]: Connection to MongoDB successful!
+2024-07-31T17:16:13.820Z [[32minfo[39m]: GET /api-docs/
+2024-07-31T17:16:13.872Z [[32minfo[39m]: GET /api-docs/swagger-ui.css
+2024-07-31T17:16:13.876Z [[32minfo[39m]: GET /api-docs/swagger-ui-bundle.js
+2024-07-31T17:16:13.878Z [[32minfo[39m]: GET /api-docs/swagger-ui-standalone-preset.js
+2024-07-31T17:16:13.881Z [[32minfo[39m]: GET /api-docs/swagger-ui-init.js
+2024-07-31T17:16:14.108Z [[32minfo[39m]: GET /api-docs/favicon-32x32.png
+2024-07-31T17:16:37.774Z [[32minfo[39m]: Connection to MongoDB successful!
+2024-07-31T17:16:41.310Z [[32minfo[39m]: GET /api-docs/
+2024-07-31T17:16:41.368Z [[32minfo[39m]: GET /api-docs/swagger-ui.css
+2024-07-31T17:16:41.371Z [[32minfo[39m]: GET /api-docs/swagger-ui-bundle.js
+2024-07-31T17:16:41.373Z [[32minfo[39m]: GET /api-docs/swagger-ui-standalone-preset.js
+2024-07-31T17:16:41.377Z [[32minfo[39m]: GET /api-docs/swagger-ui-init.js
+2024-07-31T17:16:41.616Z [[32minfo[39m]: GET /api-docs/favicon-32x32.png
+2024-07-31T17:17:26.339Z [[32minfo[39m]: POST /api/auth/signin
+2024-07-31T17:17:52.434Z [[32minfo[39m]: POST /api/auth/signin
+2024-07-31T17:18:15.636Z [[32minfo[39m]: Connection to MongoDB successful!
+2024-07-31T17:18:23.609Z [[32minfo[39m]: GET /api-docs/
+2024-07-31T17:18:23.677Z [[32minfo[39m]: GET /api-docs/swagger-ui.css
+2024-07-31T17:18:23.682Z [[32minfo[39m]: GET /api-docs/swagger-ui-bundle.js
+2024-07-31T17:18:23.684Z [[32minfo[39m]: GET /api-docs/swagger-ui-standalone-preset.js
+2024-07-31T17:18:23.687Z [[32minfo[39m]: GET /api-docs/swagger-ui-init.js
+2024-07-31T17:18:23.991Z [[32minfo[39m]: GET /api-docs/favicon-32x32.png
+2024-07-31T17:18:37.543Z [[32minfo[39m]: POST /api/auth/login
+2024-07-31T17:18:37.651Z [[32minfo[39m]: User admin@test.com logged in successfully

@@ -1,121 +1,80 @@
-const Delivery = require("../models/delivery");
+const Delivery = require('../models/Delivery');
+const logger = require('../logger');
+const handleAsync = require('../utils/handleAsync');
+const {
+  v4: uuidv4
+} = require('uuid');
 
-exports.createDelivery = (req, res, next) => {
-  const deliveryData = req.body;
-  const delivery = new Delivery({
-    ...deliveryData,
-  });
-  delivery
-    .save()
-    .then(() =>
-      res.status(201).json({
-        message: "Delivery created !",
-      })
-    )
-    .catch((error) =>
-      res.status(400).json({
-        error,
-      })
-    );
-};
-exports.getOneDelivery = (req, res, next) => {
-  Delivery.findOne({
-    _id: req.params.id,
-  })
-    .populate("package_id")
-    .then((delivery) =>
-      res.status(200).json({
-        delivery,
-      })
-    )
-    .catch((error) =>
-      res.status(404).json({
-        error,
-      })
-    );
-};
+exports.getAllDeliveries = handleAsync(async (req, res) => {
+  const deliveries = await Delivery.find();
+  logger.info('Fetched all deliveries');
+  res.status(200).json(deliveries);
+});
 
-exports.getDeliveries = async (req, res) => {
-  let user = req.query.user;
-  let filter = {
-    user: user,
+exports.createDelivery = handleAsync(async (req, res) => {
+  const deliveryData = {
+    _id: uuidv4(),
+    ...req.body
   };
+  const delivery = new Delivery(deliveryData);
+  await delivery.save();
+  logger.info(`Created new delivery with ID: ${delivery._id}`);
+  res.status(201).json({
+    message: 'Delivery created successfully!'
+  });
+});
 
-  try {
-    const pageNumber = parseInt(req.query.page) || 0;
-    const limit = parseInt(req.query.limit) || 12;
-    const result = {};
-    const totalDeliveries = await Delivery.countDocuments().exec();
-    let startIndex = pageNumber * limit;
-    const endIndex = (pageNumber + 1) * limit;
-    result.totalDeliveries = totalDeliveries;
-    if (startIndex > 0) {
-      result.previous = {
-        pageNumber: pageNumber - 1,
-        limit: limit,
-      };
-    }
-    if (endIndex < (await Delivery.countDocuments().exec())) {
-      result.next = {
-        pageNumber: pageNumber + 1,
-        limit: limit,
-      };
-    }
-    result.data = await Delivery.find(filter)
-      .sort("-_id")
-      .skip(startIndex)
-      .limit(limit)
-      .exec();
-    result.rowsPerPage = limit;
-    return res.json({
-      msg: "Deliveries Fetched successfully",
-      data: result,
-    });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({
-      msg: "Sorry, something went wrong",
+exports.getDeliveryById = handleAsync(async (req, res) => {
+  const {
+    id
+  } = req.params;
+  const delivery = await Delivery.findById(id);
+  if (!delivery) {
+    logger.warn(`Delivery with ID ${id} not found`);
+    return res.status(404).json({
+      message: 'Delivery not found'
     });
   }
-};
+  logger.info(`Fetched delivery with ID ${id}`);
+  res.status(200).json(delivery);
+});
 
-exports.updateDelivery = (req, res, next) => {
-  const deliveryData = {
-    ...req.body,
-  };
-  Delivery.updateOne(
-    {
-      _id: req.params.id,
-    },
-    {
-      ...deliveryData,
-      _id: req.params.id,
-    }
-  )
-    .then((data) =>
-      res.status(200).json({
-        message: "Updated",
-      })
-    )
-    .catch((error) =>
-      res.status(400).json({
-        error,
-      })
-    );
-};
+exports.updateDelivery = handleAsync(async (req, res) => {
+  const {
+    id
+  } = req.params;
+  const updatedDelivery = await Delivery.findByIdAndUpdate(id, {
+    ...req.body
+  }, {
+    new: true,
+    runValidators: true,
+  });
+  if (!updatedDelivery) {
+    logger.warn(`Delivery with ID ${id} not found`);
+    return res.status(404).json({
+      message: 'Delivery not found'
+    });
+  }
+  logger.info(`Updated delivery with ID ${id}`);
+  res.status(200).json({
+    message: 'Delivery updated successfully!',
+    updatedDelivery
+  });
+});
 
-exports.deleteDelivery = (req, res, next) => {
-  Delivery.deleteOne({
-    _id: req.params.id,
-  })
-    .then(() =>
-      res.status(200).json({
-        message: "Objet supprimé !",
-      })
-    )
-    .catch((error) =>
-      res.status(500).json({
-        error,
-      })
-    );
-};
+exports.deleteDelivery = handleAsync(async (req, res) => {
+  const {
+    id
+  } = req.params;
+  const deletedDelivery = await Delivery.findByIdAndDelete(id);
+  if (!deletedDelivery) {
+    logger.warn(`Delivery with ID ${id} not found`);
+    return res.status(404).json({
+      message: 'Delivery not found'
+    });
+  }
+  logger.info(`Deleted delivery with ID ${id}`);
+  res.status(200).json({
+    message: 'Delivery deleted successfully!'
+  });
+});

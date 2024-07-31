@@ -1,118 +1,109 @@
 const Package = require("../models/package");
-const uuid = require('uuid')
-// uuid.v4()
-exports.createPackage = (req, res, next) => {
-  const packageData = req.body;
-  const package = new Package({
-    ...packageData,
-  });
-  package
-    .save()
-    .then(() =>
-      res.status(201).json({
-        message: "Package created !",
-      })
-    )
-    .catch((error) => {
-      console.log(error);
-      res.status(400).json({
-        error,
-      });
-    });
-};
-exports.getOnePackage = (req, res, next) => {
-  Package.findOne({
-      _id: req.params.id,
-    })
-    .populate("active_delivery_id")
-    .then((package) =>
-      res.status(200).json({
-        package,
-      })
-    )
-    .catch((error) =>
-      res.status(404).json({
-        error,
-      })
-    );
-};
+const logger = require("../logger");
+const handleAsync = require("../utils/handleAsync");
+const {
+  v4: uuidv4
+} = require("uuid");
 
-exports.getPackages = async (req, res) => {
-  let user = req.query.user;
-  let filter = {
-    user: user,
+exports.createPackage = handleAsync(async (req, res) => {
+  const packageData = {
+    _id: uuidv4(),
+    ...req.body,
   };
-  try {
-    const pageNumber = parseInt(req.query.page) || 0;
-    const limit = parseInt(req.query.limit) || 12;
-    const result = {};
-    const totalPackages = await Package.countDocuments().exec();
-    let startIndex = pageNumber * limit;
-    const endIndex = (pageNumber + 1) * limit;
-    result.totalPackages = totalPackages;
-    if (startIndex > 0) {
-      result.previous = {
-        pageNumber: pageNumber - 1,
-        limit: limit,
-      };
-    }
-    if (endIndex < (await Package.countDocuments().exec())) {
-      result.next = {
-        pageNumber: pageNumber + 1,
-        limit: limit,
-      };
-    }
-    result.data = await Package.find(filter)
+  const package = new Package(packageData);
+  await package.save();
+  logger.info(`Package created with ID: ${package._id}`);
+  res.status(201).json({
+    message: "Package created!",
+  });
+});
+
+exports.getPackageById = handleAsync(async (req, res) => {
+  const package = await Package.findById(req.params.id).populate("active_delivery_id");
+  if (!package) {
+    logger.warn(`Package with ID ${req.params.id} not found`);
+    return res.status(404).json({
+      message: "Package not found",
+    });
+  }
+  logger.info(`Fetched package with ID ${req.params.id}`);
+  res.status(200).json({
+    package,
+  });
+});
+
+exports.getAllPackages = handleAsync(async (req, res) => {
+  const user = req.query.user;
+  const filter = user ? {
+    user
+  } : {};
+
+  const pageNumber = parseInt(req.query.page, 10) || 0;
+  const limit = parseInt(req.query.limit, 10) || 12;
+  const startIndex = pageNumber * limit;
+  const endIndex = startIndex + limit;
+
+  const totalPackages = await Package.countDocuments(filter).exec();
+
+  const result = {
+    totalPackages,
+    rowsPerPage: limit,
+    previous: startIndex > 0 ? {
+      pageNumber: pageNumber - 1,
+      limit
+    } : undefined,
+    next: endIndex < totalPackages ? {
+      pageNumber: pageNumber + 1,
+      limit
+    } : undefined,
+    data: await Package.find(filter)
       .sort("-_id")
       .skip(startIndex)
       .limit(limit)
-      .exec();
-    result.rowsPerPage = limit;
-    return res.json({
-      msg: "Packages Fetched successfully",
-      data: result,
-    });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({
-      msg: "Sorry, something went wrong",
+      .exec(),
+  };
+
+  logger.info("Fetched packages");
+  res.status(200).json({
+    msg: "Packages fetched successfully",
+    data: result,
+  });
+});
+
+exports.updatePackage = handleAsync(async (req, res) => {
+  const packageData = {
+    ...req.body
+  };
+  const updatedPackage = await Package.findByIdAndUpdate(req.params.id, packageData, {
+    new: true,
+    runValidators: true,
+  });
+
+  if (!updatedPackage) {
+    logger.warn(`Package with ID ${req.params.id} not found`);
+    return res.status(404).json({
+      message: "Package not found",
     });
   }
-};
-exports.updatePackage = (req, res, next) => {
-  const packageData = {
-    ...req.body,
-  };
-  Package.updateOne({
-      _id: req.params.id,
-    }, {
-      ...packageData,
-      _id: req.params.id,
-    })
-    .then(() =>
-      res.status(200).json({
-        message: "Updated!",
-      })
-    )
-    .catch((error) =>
-      res.status(400).json({
-        error,
-      })
-    );
-};
 
-exports.deletePackage = (req, res, next) => {
-  Package.deleteOne({
-      _id: req.params.id,
-    })
-    .then(() =>
-      res.status(200).json({
-        message: "Objet supprimé !",
-      })
-    )
-    .catch((error) =>
-      res.status(500).json({
-        error,
-      })
-    );
-};
+  logger.info(`Updated package with ID ${req.params.id}`);
+  res.status(200).json({
+    message: "Package updated!",
+  });
+});
+
+exports.deletePackage = handleAsync(async (req, res) => {
+  const deletedPackage = await Package.findByIdAndDelete(req.params.id);
+
+  if (!deletedPackage) {
+    logger.warn(`Package with ID ${req.params.id} not found`);
+    return res.status(404).json({
+      message: "Package not found",
+    });
+  }
+
+  logger.info(`Deleted package with ID ${req.params.id}`);
+  res.status(200).json({
+    message: "Package deleted!",
+  });
+});

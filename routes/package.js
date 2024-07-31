@@ -46,7 +46,7 @@ const packageCtrl = require("../controllers/package");
  *      '401':
  *        description: Token expired.
  */
-router.get("/", auth, packageCtrl.getPackages);
+router.get("/", auth, packageCtrl.getAllPackages);
 
 /**
  * @swagger
@@ -85,7 +85,7 @@ router.get("/", auth, packageCtrl.getPackages);
  *      '404':
  *        description: Ressource not found.
  */
-router.get("/:id", auth, packageCtrl.getOnePackage);
+router.get("/:id", auth, packageCtrl.getPackageById);
 /**
  * @swagger
  * /api/packages:
