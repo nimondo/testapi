@@ -87,3 +87,44 @@
 2024-07-31T17:18:23.991Z [[32minfo[39m]: GET /api-docs/favicon-32x32.png
 2024-07-31T17:18:37.543Z [[32minfo[39m]: POST /api/auth/login
 2024-07-31T17:18:37.651Z [[32minfo[39m]: User admin@test.com logged in successfully
+2024-07-31T17:22:30.089Z [[32minfo[39m]: Connection to MongoDB successful!
+2024-07-31T17:22:36.568Z [[32minfo[39m]: Connection to MongoDB successful!
+2024-08-01T13:06:22.390Z [[32minfo[39m]: Connection to MongoDB successful!
+2024-08-01T13:06:25.518Z [[32minfo[39m]: GET /api-docs/
+2024-08-01T13:06:25.679Z [[32minfo[39m]: GET /api-docs/swagger-ui.css
+2024-08-01T13:06:25.696Z [[32minfo[39m]: GET /api-docs/swagger-ui-bundle.js
+2024-08-01T13:06:25.705Z [[32minfo[39m]: GET /api-docs/swagger-ui-standalone-preset.js
+2024-08-01T13:06:25.707Z [[32minfo[39m]: GET /api-docs/swagger-ui-init.js
+2024-08-01T13:06:27.521Z [[32minfo[39m]: GET /api-docs/favicon-32x32.png
+2024-08-01T13:11:11.254Z [[32minfo[39m]: Connection to MongoDB successful!
+2024-08-01T13:31:26.688Z [[32minfo[39m]: Connection to MongoDB successful!
+2024-08-01T13:31:40.670Z [[32minfo[39m]: Connection to MongoDB successful!
+2024-08-01T13:31:55.526Z [[32minfo[39m]: Connection to MongoDB successful!
+2024-08-01T13:32:00.289Z [[32minfo[39m]: Connection to MongoDB successful!
+2024-08-01T13:34:08.174Z [[32minfo[39m]: OPTIONS /api/auth/signup
+2024-08-01T13:34:08.206Z [[32minfo[39m]: POST /api/auth/signup
+2024-08-01T13:34:08.333Z [[32minfo[39m]: User created successfully
+2024-08-01T13:34:26.521Z [[32minfo[39m]: OPTIONS /api/auth/login
+2024-08-01T13:34:26.526Z [[32minfo[39m]: POST /api/auth/login
+2024-08-01T13:34:26.615Z [[32minfo[39m]: User admin@admin.co logged in successfully
+2024-08-01T13:34:38.730Z [[32minfo[39m]: OPTIONS /api/packages?page=0
+2024-08-01T13:34:38.738Z [[32minfo[39m]: OPTIONS /api/deliveries?page=0
+2024-08-01T13:34:38.744Z [[32minfo[39m]: GET /api/packages?page=0
+2024-08-01T13:34:38.750Z [[32minfo[39m]: GET /api/deliveries?page=0
+2024-08-01T13:34:38.797Z [[32minfo[39m]: Fetched packages
+2024-08-01T13:34:59.425Z [[32minfo[39m]: OPTIONS /api/packages?page=0
+2024-08-01T13:34:59.431Z [[32minfo[39m]: OPTIONS /api/deliveries?page=0
+2024-08-01T13:34:59.439Z [[32minfo[39m]: GET /api/packages?page=0
+2024-08-01T13:34:59.448Z [[32minfo[39m]: Fetched packages
+2024-08-01T13:34:59.455Z [[32minfo[39m]: GET /api/deliveries?page=0
+2024-08-01T13:35:31.697Z [[32minfo[39m]: OPTIONS /api/auth/login
+2024-08-01T13:35:31.732Z [[32minfo[39m]: POST /api/auth/login
+2024-08-01T13:35:31.813Z [[32minfo[39m]: User admin@admin.co logged in successfully
+2024-08-01T13:36:05.760Z [[32minfo[39m]: OPTIONS /api/packages?page=0
+2024-08-01T13:36:05.769Z [[32minfo[39m]: OPTIONS /api/deliveries?page=0
+2024-08-01T13:36:05.771Z [[32minfo[39m]: GET /api/packages?page=0
+2024-08-01T13:36:05.774Z [[32minfo[39m]: GET /api/deliveries?page=0
+2024-08-01T13:36:05.782Z [[32minfo[39m]: Fetched packages
+2024-08-01T13:36:28.933Z [[32minfo[39m]: OPTIONS /api/auth/login
+2024-08-01T13:36:28.941Z [[32minfo[39m]: POST /api/auth/login
+2024-08-01T13:36:29.011Z [[32minfo[39m]: User admin@admin.co logged in successfully

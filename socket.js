@@ -9,7 +9,7 @@ module.exports = (server) => {
     });
 
     io.on("connection", (socket) => {
-        console.log("connected");
+        console.log("Socket connected: " + socket.id);
 
         socket.on("addDelivery", (delivery) => {
             console.log("addDelivery");
@@ -30,7 +30,13 @@ module.exports = (server) => {
         });
 
         socket.on("disconnect", () => {
-            console.log("disconnected!");
+            console.log("Socket disconnected: " + socket.id);
         });
     });
+
+    io.on("error", (error) => {
+        console.error("Socket.io error: ", error);
+    });
+
+    console.log("Socket.io server started");
 };
