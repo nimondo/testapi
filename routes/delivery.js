@@ -79,7 +79,7 @@ router.get("/", auth, authRole.authRole('driver'), deliveryCtrl.getAllDeliveries
  *      '404':
  *        description: Ressource not found.
  */
-router.get("/:id", auth, deliveryCtrl.getDeliveryById);
+router.get("/:id", auth, authRole.authRole('driver'), deliveryCtrl.getDeliveryById);
 /**
  * @swagger
  * /api/deliveries:
@@ -146,7 +146,7 @@ router.get("/:id", auth, deliveryCtrl.getDeliveryById);
  *           type: string
  *           enum: ['open', 'picked-up', 'in-transit', 'delivered', 'failed']
  */
-router.post("/", auth, deliveryCtrl.createDelivery);
+router.post("/", auth, authRole.authRole('driver'), deliveryCtrl.createDelivery);
 /**
  * @swagger
  * /api/deliveries/{delivery_id}:
@@ -191,7 +191,7 @@ router.post("/", auth, deliveryCtrl.createDelivery);
  *        description: Bad request.
  *    schema:
  */
-router.put("/:id", auth, deliveryCtrl.updateDelivery);
+router.put("/:id", auth, authRole.authRole('driver'), deliveryCtrl.updateDelivery);
 /**
  * @swagger
  * /api/deliveries/{delivery_id}:
@@ -236,6 +236,6 @@ router.put("/:id", auth, deliveryCtrl.updateDelivery);
  *        description: Bad request.
  *    schema:
  */
-router.delete("/:id", auth, deliveryCtrl.deleteDelivery);
+router.delete("/:id", auth, authRole.authRole('driver'), deliveryCtrl.deleteDelivery);
 
 module.exports = router;
