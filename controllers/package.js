@@ -10,17 +10,17 @@ exports.createPackage = handleAsync(async (req, res) => {
     _id: uuidv4(),
     ...req.body,
   };
-  const package = new Package(packageData);
-  await package.save();
-  logger.info(`Package created with ID: ${package._id}`);
+  const packageToSave = new Package(packageData);
+  await packageToSave.save();
+  logger.info(`Package created with ID: ${packageToSave._id}`);
   res.status(201).json({
     message: "Package created!",
   });
 });
 
 exports.getPackageById = handleAsync(async (req, res) => {
-  const package = await Package.findById(req.params.id).populate("active_delivery_id");
-  if (!package) {
+  const packageData = await Package.findById(req.params.id).populate("active_delivery_id");
+  if (!packageData) {
     logger.warn(`Package with ID ${req.params.id} not found`);
     return res.status(404).json({
       message: "Package not found",
@@ -28,7 +28,7 @@ exports.getPackageById = handleAsync(async (req, res) => {
   }
   logger.info(`Fetched package with ID ${req.params.id}`);
   res.status(200).json({
-    package,
+    packageData,
   });
 });
 

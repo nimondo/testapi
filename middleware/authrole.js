@@ -1,10 +1,9 @@
 const jwt = require('jsonwebtoken');
 
 const roleData = {
-  "admin": ["admin", "customer", "agent", "broker"],
-  "broker": ["broker", "agent"],
-  "agent": ["broker", "agent"],
-  "customer": ["customer"],
+  "admin": ["admin", "customer", "driver"],
+  "driver": ["driver", "customer"],
+  "customer": ["customer"]
 };
 
 const authRole = (role) => {

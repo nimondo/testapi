@@ -1,10 +1,10 @@
 {
-  "name": "octest",
+  "name": "gozemtest",
   "version": "1.0.0",
-  "description": "openclassrooms test",
+  "description": "GOZEM TEST API",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "dev": "nodemon index.js",
     "prod": "node index.js"
   },

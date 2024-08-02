@@ -79,12 +79,11 @@ exports.login = handleAsync(async (req, res, next) => {
   }, process.env.TOKEN, {
     expiresIn: '24h'
   });
-
   logger.info(`User ${user.email} logged in successfully`);
   res.status(200).json({
     userId: user._id,
     role: user.role,
     email: user.email,
-    token
+    token: token
   });
 });
